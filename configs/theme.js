@@ -5,5 +5,6 @@ export default {
   colors: {
     ...DefaultTheme.colors,
     primary: '#021f54'
+    
   }
 }
