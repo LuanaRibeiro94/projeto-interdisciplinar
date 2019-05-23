@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Picker } from 'react-native';
 import Column from './components/Column';
 import { Button, Provider as PaperProvider, TextInput, Appbar } from 'react-native-paper';
 import theme from './configs/theme';
+import { Dropdown } from 'react-native-material-dropdown';
 
 export default class App extends React.Component {
   state = {
@@ -16,7 +17,17 @@ export default class App extends React.Component {
   }
 
   render() {
+    let marca = [{
+      value: 'Scania',
+    }, {
+      value: 'Volvo',
+    }, {
+      value: 'Volkswagen',
+    }
+    ];
+
     return (
+      
       <PaperProvider theme={theme}>
         
           <Appbar.Header>
@@ -31,18 +42,14 @@ export default class App extends React.Component {
           <TextInput mode='outlined' label='Frota'/>    
           <TextInput mode='outlined' label='Chassi'/>    
           <TextInput mode='outlined' label='Modelo'/>    
-    
-          <Column>
-            <Text>Marca</Text>
-            <View style={{borderWidth:1}}>
-              <Picker style={{width:150, height:40}} selectedValue={this.state.marca} onValueChange={this.atribuirMarca} >
-                <Picker.Item label="Scania" value="scania"/>
-                <Picker.Item label="Volvo" value="volvo"/>
-                <Picker.Item label="Volkswagen" value="volkswagen"/> 
-              </Picker>
-            </View>
-          </Column>
-
+      
+          <Dropdown 
+            label='Marca'
+            data={marca}
+            rippleDuration={0}
+            animationDuration={0}
+          />
+      
           <Button mode='contained' onPress={this.submit} style={{ marginTop:15 }}>
             Cadastrar
           </Button>
