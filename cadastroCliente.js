@@ -16,7 +16,6 @@ export default class App extends React.Component {
     return (
       <ScrollView>
       <PaperProvider theme={theme}>
-        
           <Appbar.Header>
             <Appbar.BackAction onPress={ () => {}}/>
               <Appbar.Content
