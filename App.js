@@ -48,7 +48,6 @@ export default class App extends React.Component {
             data={marca}
             rippleDuration={0}
             animationDuration={0}
-
           />
       
           <Button mode='contained' onPress={this.submit} style={{ marginTop:15 }}>
