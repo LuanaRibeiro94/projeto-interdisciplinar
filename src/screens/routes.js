@@ -1,5 +1,6 @@
+import React from 'react';
 import { createAppContainer, createDrawerNavigator, createStackNavigator } from 'react-navigation';
-import { Colors } from 'react-native-paper';
+import { Colors, Appbar } from 'react-native-paper';
 import Home from './Home';
 import CadastroVeiculo from './CadastroVeiculo';
 import CadastroCliente from './CadastroCliente';
@@ -30,6 +31,11 @@ const ClienteStack = createStackNavigator(
       },
     },
   },
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+    }),
+  },
 );
 
 const VeiculoStack = createStackNavigator(
@@ -45,6 +51,11 @@ const VeiculoStack = createStackNavigator(
       },
     },
   },
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+    }),
+  },
 );
 
 const OrcamentoStack = createStackNavigator(
@@ -59,6 +70,11 @@ const OrcamentoStack = createStackNavigator(
         headerTintColor: Colors.white,
       },
     },
+  },
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+    }),
   },
 );
 
