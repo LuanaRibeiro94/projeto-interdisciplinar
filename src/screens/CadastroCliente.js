@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet, View, Text, ScrollView,
-} from 'react-native';
+import { StyleSheet, View, Text, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { Button, TextInput, RadioButton } from 'react-native-paper';
 
 class CadastroCliente extends Component {
@@ -15,8 +13,8 @@ class CadastroCliente extends Component {
     const { checked } = this.state;
 
     return (
-      <ScrollView>
-        <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding" keyboardVerticalOffset={64 + 16}>
+        <ScrollView>
           <View flexDirection="row">
             <Text>Pessoa Física</Text>
             <RadioButton
@@ -43,11 +41,11 @@ class CadastroCliente extends Component {
           <TextInput mode="outlined" label="E-mail" />
           <TextInput mode="outlined" label="Telefone" />
 
-          <Button mode="contained" onPress={this.submit} style={{ marginTop: 15 }}>
+          <Button mode="contained" onPress={this.submit} style={styles.button}>
             Cadastrar
           </Button>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -57,6 +55,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     padding: 20,
+  },
+  button: {
+    marginVertical: 15,
   },
 });
 
