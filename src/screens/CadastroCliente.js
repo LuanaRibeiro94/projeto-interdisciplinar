@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, ScrollView, KeyboardAvoidingView } from 'react-native';
-import { Button, TextInput, RadioButton } from 'react-native-paper';
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  KeyboardAvoidingView,
+} from 'react-native';
+import { Button, RadioButton } from 'react-native-paper';
+import PessoaFisicaForm from '../components/Forms/PessoaFisicaForm';
+import PessoaJuridicaForm from '../components/Forms/PessoaJuridicaForm';
 
 class CadastroCliente extends Component {
   state = {
-    checked: 'pf',
+    tipoPessoa: 'pf',
   };
 
   submit() {}
 
   render() {
-    const { checked } = this.state;
+    const { tipoPessoa } = this.state;
 
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding" keyboardVerticalOffset={64 + 16}>
@@ -19,27 +27,19 @@ class CadastroCliente extends Component {
             <Text>Pessoa Física</Text>
             <RadioButton
               value="pf"
-              status={checked === 'pf' ? 'checked' : 'unchecked'}
-              onPress={() => { this.setState({ checked: 'pf' }); }}
+              status={tipoPessoa === 'pf' ? 'checked' : 'unchecked'}
+              onPress={() => { this.setState({ tipoPessoa: 'pf' }); }}
             />
 
             <Text>Pessoa Jurídica</Text>
             <RadioButton
               value="pj"
-              status={checked === 'pj' ? 'checked' : 'unchecked'}
-              onPress={() => { this.setState({ checked: 'pj' }); }}
+              status={tipoPessoa === 'pj' ? 'checked' : 'unchecked'}
+              onPress={() => { this.setState({ tipoPessoa: 'pj' }); }}
             />
           </View>
 
-          <TextInput mode="outlined" label="CPF" />
-          <TextInput mode="outlined" label="RG" />
-          <TextInput mode="outlined" label="Nome" />
-          <TextInput mode="outlined" label="Logradouro" />
-          <TextInput mode="outlined" label="Número" />
-          <TextInput mode="outlined" label="CEP" />
-          <TextInput mode="outlined" label="Bairro" />
-          <TextInput mode="outlined" label="E-mail" />
-          <TextInput mode="outlined" label="Telefone" />
+          { tipoPessoa === 'pf' ? <PessoaFisicaForm /> : <PessoaJuridicaForm />}
 
           <Button mode="contained" onPress={this.submit} style={styles.button}>
             Cadastrar
