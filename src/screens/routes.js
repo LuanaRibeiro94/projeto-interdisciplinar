@@ -5,6 +5,7 @@ import Home from './Home';
 import CadastroVeiculo from './CadastroVeiculo';
 import CadastroCliente from './CadastroCliente';
 import Orcamento from './Orcamento';
+import Agendamento from './Agendamento';
 import theme from '../configs/theme';
 
 const HomeStack = createStackNavigator(
@@ -78,6 +79,26 @@ const OrcamentoStack = createStackNavigator(
   },
 );
 
+const AgendamentoStack = createStackNavigator(
+  {
+    Agendamento: {
+      screen: Agendamento,
+      navigationOptions: {
+        title: 'Solicitar agendamento',
+        headerStyle: {
+          backgroundColor: theme.colors.primary,
+        },
+        headerTintColor: Colors.white,
+      },
+    },
+  },
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+    }),
+  },
+);
+
 const AppNavigator = createDrawerNavigator(
   {
     Home: {
@@ -102,6 +123,12 @@ const AppNavigator = createDrawerNavigator(
       screen: OrcamentoStack,
       navigationOptions: {
         drawerLabel: 'Orçamentos',
+      },
+    },
+    Agendamento: {
+      screen: AgendamentoStack,
+      navigationOptions: {
+        drawerLabel: 'Agendamentos',
       },
     },
   },
