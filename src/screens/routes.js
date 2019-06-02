@@ -7,6 +7,7 @@ import CadastroCliente from './CadastroCliente';
 import Orcamento from './Orcamento';
 import Agendamento from './Agendamento';
 import theme from '../configs/theme';
+import CadastroDespesa from './CadastroDespesa';
 
 const HomeStack = createStackNavigator(
   {
@@ -98,6 +99,25 @@ const AgendamentoStack = createStackNavigator(
     }),
   },
 );
+const DespesaStack = createStackNavigator(
+  {
+    Despesa: {
+      screen: CadastroDespesa,
+      navigationOptions: {
+        title: 'Cadastrar despesa',
+        headerStyle: {
+          backgroundColor: theme.colors.primary,
+        },
+        headerTintColor: Colors.white,
+      },
+    },
+  },
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+    }),
+  },
+);
 
 const AppNavigator = createDrawerNavigator(
   {
@@ -129,6 +149,12 @@ const AppNavigator = createDrawerNavigator(
       screen: AgendamentoStack,
       navigationOptions: {
         drawerLabel: 'Agendamentos',
+      },
+    },
+    Despesa: {
+      screen: DespesaStack,
+      navigationOptions: {
+        drawerLabel: 'Despesas',
       },
     },
   },
