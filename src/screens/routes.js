@@ -8,6 +8,8 @@ import Orcamento from './Orcamento';
 import Agendamento from './Agendamento';
 import theme from '../configs/theme';
 import CadastroDespesa from './CadastroDespesa';
+import StatusServicos from './StatusServicos';
+import ListarVeiculo from './Veiculos/Listar';
 
 const HomeStack = createStackNavigator(
   {
@@ -42,20 +44,30 @@ const ClienteStack = createStackNavigator(
 
 const VeiculoStack = createStackNavigator(
   {
+    Listar: {
+      screen: ListarVeiculo,
+      navigationOptions: {
+        title: 'Veículos',
+      },
+    },
     CadastroVeiculo: {
       screen: CadastroVeiculo,
-      navigationOptions: {
+      navigationOptions: ({ navigation }) => ({
         title: 'Cadastro de veículo',
-        headerStyle: {
-          backgroundColor: theme.colors.primary,
-        },
-        headerTintColor: Colors.white,
-      },
+        headerLeft: (
+          <Appbar.BackAction color={Colors.white} onPress={() => navigation.goBack()} />
+        ),
+      }),
     },
   },
   {
+    initialRouteName: 'Listar',
     defaultNavigationOptions: ({ navigation }) => ({
       headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+      headerStyle: {
+        backgroundColor: theme.colors.primary,
+      },
+      headerTintColor: Colors.white,
     }),
   },
 );
@@ -118,6 +130,25 @@ const DespesaStack = createStackNavigator(
     }),
   },
 );
+const StatusServicoStack = createStackNavigator(
+  {
+    Despesa: {
+      screen: StatusServicos,
+      navigationOptions: {
+        title: 'Status de serviços',
+        headerStyle: {
+          backgroundColor: theme.colors.primary,
+        },
+        headerTintColor: Colors.white,
+      },
+    },
+  },
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+    }),
+  },
+);
 
 const AppNavigator = createDrawerNavigator(
   {
@@ -155,6 +186,12 @@ const AppNavigator = createDrawerNavigator(
       screen: DespesaStack,
       navigationOptions: {
         drawerLabel: 'Despesas',
+      },
+    },
+    StatusServicos: {
+      screen: StatusServicoStack,
+      navigationOptions: {
+        drawerLabel: 'Status de serviços',
       },
     },
   },
