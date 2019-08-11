@@ -10,6 +10,8 @@ import theme from '../configs/theme';
 import CadastroDespesa from './CadastroDespesa';
 import StatusServicos from './StatusServicos';
 import ListarVeiculo from './Veiculos/Listar';
+import MenuLateral from '../components/MenuLateral';
+import * as Icones from '../components/Icones';
 
 const HomeStack = createStackNavigator(
   {
@@ -156,6 +158,7 @@ const AppNavigator = createDrawerNavigator(
       screen: HomeStack,
       navigationOptions: {
         drawerLabel: 'Início',
+        drawerIcon: 'home',
       },
     },
     Clientes: {
@@ -168,35 +171,41 @@ const AppNavigator = createDrawerNavigator(
       screen: VeiculoStack,
       navigationOptions: {
         drawerLabel: 'Veículos',
+        drawerIcon: (size, color) => <Icones.CaminhaoIcone size={size} color={color} />,
       },
     },
     Orcamento: {
       screen: OrcamentoStack,
       navigationOptions: {
         drawerLabel: 'Orçamentos',
+        drawerIcon: (size, color) => <Icones.OrcamentoIcone size={size} color={color} />,
       },
     },
     Agendamento: {
       screen: AgendamentoStack,
       navigationOptions: {
         drawerLabel: 'Agendamentos',
+        drawerIcon: (size, color) => <Icones.AgendamentoIcone size={size} color={color} />,
       },
     },
     Despesa: {
       screen: DespesaStack,
       navigationOptions: {
         drawerLabel: 'Despesas',
+        drawerIcon: (size, color) => <Icones.DespesaIcone size={size} color={color} />,
       },
     },
     StatusServicos: {
       screen: StatusServicoStack,
       navigationOptions: {
-        drawerLabel: 'Status de serviços',
+        drawerLabel: 'Serviços',
+        drawerIcon: (size, color) => <Icones.ServicoIcone size={size} color={color} />,
       },
     },
   },
   {
     initialRouteName: 'Home',
+    contentComponent: MenuLateral,
     defaultNavigationOptions: {
       headerStyle: {
         backgroundColor: theme.colors.primary,
