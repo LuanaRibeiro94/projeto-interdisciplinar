@@ -10,6 +10,7 @@ import theme from '../configs/theme';
 import CadastroDespesa from './CadastroDespesa';
 import StatusServicos from './StatusServicos';
 import ListarVeiculo from './Veiculos/Listar';
+import ListarOrcamento from './Orcamentos/Listar';
 import MenuLateral from '../components/MenuLateral';
 import * as Icones from '../components/Icones';
 
@@ -76,20 +77,30 @@ const VeiculoStack = createStackNavigator(
 
 const OrcamentoStack = createStackNavigator(
   {
-    Orcamento: {
-      screen: Orcamento,
+    Listar: {
+      screen: ListarOrcamento,
       navigationOptions: {
-        title: 'Solicitar orçamento',
-        headerStyle: {
-          backgroundColor: theme.colors.primary,
-        },
-        headerTintColor: Colors.white,
+        title: 'Orçamentos',
       },
+    },
+    SolicitarOrcamento: {
+      screen: Orcamento,
+      navigationOptions: ({ navigation }) => ({
+        title: 'Solicitar orçamento',
+        headerLeft: (
+          <Appbar.BackAction color={Colors.white} onPress={() => navigation.goBack()} />
+        ),
+      }),
     },
   },
   {
+    initialRouteName: 'Listar',
     defaultNavigationOptions: ({ navigation }) => ({
       headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+      headerStyle: {
+        backgroundColor: theme.colors.primary,
+      },
+      headerTintColor: Colors.white,
     }),
   },
 );
