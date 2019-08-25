@@ -11,6 +11,7 @@ import CadastroDespesa from './CadastroDespesa';
 import StatusServicos from './StatusServicos';
 import ListarVeiculo from './Veiculos/Listar';
 import ListarOrcamento from './Orcamentos/Listar';
+import ListarDespesa from './Despesas/Listar';
 import MenuLateral from '../components/MenuLateral';
 import * as Icones from '../components/Icones';
 
@@ -126,26 +127,36 @@ const AgendamentoStack = createStackNavigator(
 );
 const DespesaStack = createStackNavigator(
   {
-    Despesa: {
-      screen: CadastroDespesa,
+    Listar: {
+      screen: ListarDespesa,
       navigationOptions: {
-        title: 'Cadastrar despesa',
-        headerStyle: {
-          backgroundColor: theme.colors.primary,
-        },
-        headerTintColor: Colors.white,
+        title: 'Despesas',
       },
+    },
+    CadastroDespesa: {
+      screen: CadastroDespesa,
+      navigationOptions: ({ navigation }) => ({
+        title: 'Cadastrar despesa',
+        headerLeft: (
+          <Appbar.BackAction color={Colors.white} onPress={() => navigation.goBack()} />
+        ),
+      }),
     },
   },
   {
+    initialRouteName: 'Listar',
     defaultNavigationOptions: ({ navigation }) => ({
       headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+      headerStyle: {
+        backgroundColor: theme.colors.primary,
+      },
+      headerTintColor: Colors.white,
     }),
   },
 );
 const StatusServicoStack = createStackNavigator(
   {
-    Despesa: {
+    Servico: {
       screen: StatusServicos,
       navigationOptions: {
         title: 'Status de serviços',
