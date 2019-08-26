@@ -12,6 +12,7 @@ import StatusServicos from './StatusServicos';
 import ListarVeiculo from './Veiculos/Listar';
 import ListarOrcamento from './Orcamentos/Listar';
 import ListarDespesa from './Despesas/Listar';
+import ListarServico from './Servicos/Listar';
 import MenuLateral from '../components/MenuLateral';
 import * as Icones from '../components/Icones';
 
@@ -154,8 +155,14 @@ const DespesaStack = createStackNavigator(
     }),
   },
 );
-const StatusServicoStack = createStackNavigator(
+const ServicoStack = createStackNavigator(
   {
+    Listar: {
+      screen: ListarServico,
+      navigationOptions: {
+        title: 'Serviços',
+      },
+    },
     Servico: {
       screen: StatusServicos,
       navigationOptions: {
@@ -168,8 +175,13 @@ const StatusServicoStack = createStackNavigator(
     },
   },
   {
+    initialRouteName: 'Listar',
     defaultNavigationOptions: ({ navigation }) => ({
       headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+      headerStyle: {
+        backgroundColor: theme.colors.primary,
+      },
+      headerTintColor: Colors.white,
     }),
   },
 );
@@ -218,7 +230,7 @@ const AppNavigator = createDrawerNavigator(
       },
     },
     StatusServicos: {
-      screen: StatusServicoStack,
+      screen: ServicoStack,
       navigationOptions: {
         drawerLabel: 'Serviços',
         drawerIcon: (size, color) => <Icones.ServicoIcone size={size} color={color} />,
