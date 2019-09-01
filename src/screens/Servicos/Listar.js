@@ -14,7 +14,7 @@ const Listar = ({ navigation }) => {
       />
       <BottomFAB
         icon="add"
-        onPress={() => { navigation.navigate(''); }}
+        onPress={() => { navigation.navigate('CadastroServico'); }}
       />
     </View>
   );

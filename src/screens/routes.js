@@ -8,6 +8,7 @@ import Orcamento from './Orcamento';
 import Agendamento from './Agendamento';
 import theme from '../configs/theme';
 import CadastroDespesa from './CadastroDespesa';
+import CadastroServico from './CadastroServico';
 import StatusServicos from './StatusServicos';
 import ListarVeiculo from './Veiculos/Listar';
 import ListarOrcamento from './Orcamentos/Listar';
@@ -144,10 +145,10 @@ const ServicoStack = createStackNavigator(
         title: 'Serviços',
       },
     },
-    Servico: {
-      screen: StatusServicos,
+    CadastroServico: {
+      screen: CadastroServico,
       navigationOptions: {
-        title: 'Status de serviços',
+        title: 'Cadastro de serviços',
         headerStyle: {
           backgroundColor: theme.colors.primary,
         },
