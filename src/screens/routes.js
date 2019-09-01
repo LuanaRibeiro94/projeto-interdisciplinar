@@ -1,5 +1,5 @@
 import React from 'react';
-import { createAppContainer, createDrawerNavigator, createStackNavigator } from 'react-navigation';
+import { createAppContainer, createDrawerNavigator, createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import { Colors, Appbar } from 'react-native-paper';
 import Home from './Home';
 import CadastroVeiculo from './CadastroVeiculo';
@@ -15,6 +15,7 @@ import ListarDespesa from './Despesas/Listar';
 import ListarServico from './Servicos/Listar';
 import MenuLateral from '../components/MenuLateral';
 import * as Icones from '../components/Icones';
+import Login from './Login';
 
 const HomeStack = createStackNavigator(
   {
@@ -24,26 +25,6 @@ const HomeStack = createStackNavigator(
         header: null,
       },
     },
-  },
-);
-
-const ClienteStack = createStackNavigator(
-  {
-    CadastroCliente: {
-      screen: CadastroCliente,
-      navigationOptions: {
-        title: 'Cadastro de cliente',
-        headerStyle: {
-          backgroundColor: theme.colors.primary,
-        },
-        headerTintColor: Colors.white,
-      },
-    },
-  },
-  {
-    defaultNavigationOptions: ({ navigation }) => ({
-      headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
-    }),
   },
 );
 
@@ -186,6 +167,25 @@ const ServicoStack = createStackNavigator(
   },
 );
 
+const AutenticacaoStack = createStackNavigator({
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  CadastroCliente: {
+    screen: CadastroCliente,
+    navigationOptions: {
+      title: 'Cadastro de cliente',
+      headerStyle: {
+        backgroundColor: theme.colors.primary,
+      },
+      headerTintColor: Colors.white,
+    },
+  },
+});
+
 const AppNavigator = createDrawerNavigator(
   {
     Home: {
@@ -193,12 +193,6 @@ const AppNavigator = createDrawerNavigator(
       navigationOptions: {
         drawerLabel: 'Início',
         drawerIcon: 'home',
-      },
-    },
-    Clientes: {
-      screen: ClienteStack,
-      navigationOptions: {
-        drawerLabel: 'Clientes',
       },
     },
     CadastroVeiculo: {
@@ -249,4 +243,14 @@ const AppNavigator = createDrawerNavigator(
   },
 );
 
-export default createAppContainer(AppNavigator);
+export default createAppContainer(
+  createSwitchNavigator(
+    {
+      App: AppNavigator,
+      Autenticacao: AutenticacaoStack,
+    },
+    {
+      initialRouteName: 'Autenticacao',
+    },
+  ),
+);
