@@ -8,7 +8,7 @@ import Orcamento from './Orcamento';
 import Agendamento from './Agendamento';
 import theme from '../configs/theme';
 import CadastroDespesa from './CadastroDespesa';
-import StatusServicos from './StatusServicos';
+import CadastroServico from './CadastroServico';
 import ListarVeiculo from './Veiculos/Listar';
 import ListarOrcamento from './Orcamentos/Listar';
 import ListarDespesa from './Despesas/Listar';
@@ -144,15 +144,14 @@ const ServicoStack = createStackNavigator(
         title: 'Serviços',
       },
     },
-    Servico: {
-      screen: StatusServicos,
-      navigationOptions: {
-        title: 'Status de serviços',
-        headerStyle: {
-          backgroundColor: theme.colors.primary,
-        },
-        headerTintColor: Colors.white,
-      },
+    CadastroServico: {
+      screen: CadastroServico,
+      navigationOptions: ({ navigation }) => ({
+        title: 'Cadastrar serviço',
+        headerLeft: (
+          <Appbar.BackAction color={Colors.white} onPress={() => navigation.goBack()} />
+        ),
+      }),
     },
   },
   {
@@ -195,7 +194,7 @@ const AppNavigator = createDrawerNavigator(
         drawerIcon: 'home',
       },
     },
-    CadastroVeiculo: {
+    Veiculo: {
       screen: VeiculoStack,
       navigationOptions: {
         drawerLabel: 'Veículos',
@@ -223,7 +222,7 @@ const AppNavigator = createDrawerNavigator(
         drawerIcon: (size, color) => <Icones.DespesaIcone size={size} color={color} />,
       },
     },
-    StatusServicos: {
+    Servico: {
       screen: ServicoStack,
       navigationOptions: {
         drawerLabel: 'Serviços',
