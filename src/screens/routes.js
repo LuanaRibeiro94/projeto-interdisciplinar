@@ -1,5 +1,10 @@
 import React from 'react';
-import { createAppContainer, createDrawerNavigator, createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import {
+  createAppContainer,
+  createDrawerNavigator,
+  createStackNavigator,
+  createSwitchNavigator,
+} from 'react-navigation';
 import { Colors, Appbar } from 'react-native-paper';
 import Home from './Home';
 import CadastroVeiculo from './CadastroVeiculo';
