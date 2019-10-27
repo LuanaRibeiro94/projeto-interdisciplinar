@@ -16,6 +16,7 @@ import ListarServico from './Servicos/Listar';
 import MenuLateral from '../components/MenuLateral';
 import * as Icones from '../components/Icones';
 import Login from './Login';
+import Splash from './Splash';
 
 const HomeStack = createStackNavigator(
   {
@@ -247,9 +248,10 @@ export default createAppContainer(
     {
       App: AppNavigator,
       Autenticacao: AutenticacaoStack,
+      Splash,
     },
     {
-      initialRouteName: 'Autenticacao',
+      initialRouteName: 'Splash',
     },
   ),
 );

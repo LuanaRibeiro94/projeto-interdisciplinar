@@ -2,12 +2,13 @@ import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import Footer from '../../components/Footer';
 import LoginForm from './LoginForm';
+import firebase from 'firebase';
 
 const Login = ({ navigation }) => {
-  const enviarFormulario = ({ email, senha }) => {
-    if (email === 'teste@teste.com' && senha === '123456') {
-      navigation.navigate('App');
-    }
+  const enviarFormulario = async ({ email, senha }) => {
+    firebase.auth().signInWithEmailAndPassword(email, senha)
+      .then(() => navigation.navigate('App'))
+      .catch(() => console.log('Autenticação inválida'));
   };
 
   return (
