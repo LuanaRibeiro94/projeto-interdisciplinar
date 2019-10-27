@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
+import firebase from 'firebase';
 import Footer from '../../components/Footer';
 import LoginForm from './LoginForm';
-import firebase from 'firebase';
 
 const Login = ({ navigation }) => {
   const enviarFormulario = async ({ email, senha }) => {
