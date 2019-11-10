@@ -1,42 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
-import { Dropdown } from 'react-native-material-dropdown';
+import firebase from 'firebase';
+import VeiculoForm from '../components/Forms/VeiculoForm';
 
-class CadastroVeiculo extends Component {
-  submit() {}
+const CadastroVeiculo = ({ navigation }) => {
+  const enviarFormulario = valores => {
+    firebase.database().ref('veiculos').push(valores)
+      .then(() => navigation.goBack())
+      .catch(() => console.log('Ocorreu algum erro ao cadastrar o veículo'));
+  };
 
-  render() {
-    const marca = [{
-      value: 'Scania',
-    }, {
-      value: 'Volvo',
-    }, {
-      value: 'Volkswagen',
-    },
-    ];
-
-    return (
-      <View style={styles.container}>
-        <TextInput mode="outlined" label="Placa" />
-        <TextInput mode="outlined" label="Frota" />
-        <TextInput mode="outlined" label="Chassi" />
-        <TextInput mode="outlined" label="Modelo" />
-
-        <Dropdown
-          label="Marca"
-          data={marca}
-          rippleDuration={0}
-          animationDuration={0}
-        />
-
-        <Button mode="contained" onPress={this.submit} style={{ marginTop: 15 }}>
-          Cadastrar
-        </Button>
-      </View>
-    );
-  }
-}
+  return (
+    <View style={styles.container}>
+      <VeiculoForm
+        enviarFormulario={enviarFormulario}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
