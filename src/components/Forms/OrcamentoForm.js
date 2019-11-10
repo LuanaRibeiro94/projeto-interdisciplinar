@@ -1,14 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { Formik, Field } from 'formik';
 import { Button } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown';
 import FormInput from '../FormInput';
-
-const PLACAS = [{
-  value: 'ABC-123',
-},
-];
+import { getPlacas } from '../../services/firebase/veiculos';
 
 const PECAS = [
   {
@@ -41,13 +37,20 @@ const SERVICOS = [
 ];
 
 const OrcamentoForm = ({ handleChange, submitForm }) => {
+  const [placasVeiculos, setPlacasVeiculos] = useState([]);
+
+  useEffect(() => {
+    getPlacas()
+      .then(placas => setPlacasVeiculos(placas));
+  }, []);
+
   return (
     <View>
       <Field
         name="placa"
         component={Dropdown}
         label="Placa"
-        data={PLACAS}
+        data={placasVeiculos}
         rippleDuration={0}
         animationDuration={0}
         onChangeText={handleChange('placa')}
