@@ -9,7 +9,7 @@ import { Colors, Appbar } from 'react-native-paper';
 import Home from './Home';
 import CadastroVeiculo from './CadastroVeiculo';
 import CadastroCliente from './CadastroCliente';
-import Orcamento from './Orcamento';
+import CadastroOrcamento from './CadastroOrcamento';
 import Agendamento from './Agendamento';
 import theme from '../configs/theme';
 import CadastroDespesa from './CadastroDespesa';
@@ -73,7 +73,7 @@ const OrcamentoStack = createStackNavigator(
       },
     },
     SolicitarOrcamento: {
-      screen: Orcamento,
+      screen: CadastroOrcamento,
       navigationOptions: ({ navigation }) => ({
         title: 'Solicitar orçamento',
         headerLeft: (
