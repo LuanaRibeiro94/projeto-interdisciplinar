@@ -9,21 +9,25 @@ const Listar = ({ navigation }) => {
   const [veiculos, setVeiculos] = useState([]);
 
   useEffect(() => {
+    const ref = firebase.database().ref('veiculos');
+
+    ref.on('value', onValueChange);
+
+    return () => ref.off('value', onValueChange);
+  }, []);
+
+  const onValueChange = snapShot => {
     const dadosVeiculos = [];
 
-    firebase.database().ref('veiculos').on('value', (snapShot) => {
-      snapShot.forEach(veiculo => {
-        dadosVeiculos.push({
-          key: veiculo.key,
-          ...veiculo.val(),
-        });
+    snapShot.forEach(veiculo => {
+      dadosVeiculos.push({
+        key: veiculo.key,
+        ...veiculo.val(),
       });
-
-      setVeiculos(dadosVeiculos);
     });
 
-    return () => firebase.database().ref('veiculos').off();
-  });
+    setVeiculos(dadosVeiculos);
+  };
 
   return (
     <View style={styles.container}>
