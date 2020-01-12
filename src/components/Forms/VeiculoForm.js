@@ -26,7 +26,7 @@ const MARCAS = [{
 },
 ];
 
-const VeiculoForm = ({ handleChange, submitForm }) => {
+const VeiculoForm = ({ handleChange, submitForm, edit, values }) => {
   return (
     <View>
       <Field
@@ -77,25 +77,25 @@ const VeiculoForm = ({ handleChange, submitForm }) => {
         data={MARCAS}
         rippleDuration={0}
         animationDuration={0}
+        value={values.marca}
       />
 
       <Button mode="contained" onPress={submitForm} style={{ marginTop: 15 }}>
-        CADASTRAR
+        { edit ? 'ALTERAR' : 'CADASTRAR'}
       </Button>
     </View>
   );
 };
 
-const FormikVeiculoForm = ({ enviarFormulario }) => {
+const FormikVeiculoForm = ({ enviarFormulario, initialValues, edit }) => {
   return (
     <Formik
-      component={VeiculoForm}
-      initialValues={{
-        placa: '', frota: '', chassi: '', modelo: '', marca: '',
-      }}
+      initialValues={initialValues}
       onSubmit={valores => enviarFormulario(valores)}
       validationSchema={validationSchema}
-    />
+    >
+      { props => <VeiculoForm edit={edit} {...props} />}
+    </Formik>
   );
 };
 

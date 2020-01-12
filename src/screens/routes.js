@@ -7,7 +7,7 @@ import {
 } from 'react-navigation';
 import { Colors, Appbar } from 'react-native-paper';
 import Home from './Home';
-import CadastroVeiculo from './CadastroVeiculo';
+import VeiculoFormScreen from './Veiculos/VeiculoFormScreen';
 import CadastroCliente from './CadastroCliente';
 import CadastroOrcamento from './CadastroOrcamento';
 import Agendamento from './Agendamento';
@@ -42,10 +42,9 @@ const VeiculoStack = createStackNavigator(
         title: 'Veículos',
       },
     },
-    CadastroVeiculo: {
-      screen: CadastroVeiculo,
+    VeiculoFormScreen: {
+      screen: VeiculoFormScreen,
       navigationOptions: ({ navigation }) => ({
-        title: 'Cadastro de veículo',
         headerLeft: (
           <Appbar.BackAction color={Colors.white} onPress={() => navigation.goBack()} />
         ),
