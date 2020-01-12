@@ -37,7 +37,10 @@ const Listar = ({ navigation }) => {
             key={veiculo.key}
             title={veiculo.marca}
             description={veiculo.placa}
-            onPress={() => {}}
+            onPress={() => navigation.navigate('VeiculoFormScreen', {
+              edit: true,
+              initialValues: veiculo,
+            })}
             right={props => (
               <Touchable
                 onPress={() => {
@@ -55,7 +58,7 @@ const Listar = ({ navigation }) => {
 
       <BottomFAB
         icon="add"
-        onPress={() => { navigation.navigate('CadastroVeiculo'); }}
+        onPress={() => { navigation.navigate('VeiculoFormScreen'); }}
       />
     </View>
   );
