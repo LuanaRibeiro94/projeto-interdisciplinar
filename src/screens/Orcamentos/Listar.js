@@ -9,21 +9,25 @@ const Listar = ({ navigation }) => {
   const [orcamentos, setOrcamentos] = useState([]);
 
   useEffect(() => {
+    const ref = firebase.database().ref('orçamentos');
+
+    ref.on('value', onValueChange);
+
+    return () => ref.off('value', onValueChange);
+  }, []);
+
+  const onValueChange = snapShot => {
     const dadosOrcamentos = [];
 
-    firebase.database().ref('orçamentos').on('value', (snapShot) => {
-      snapShot.forEach(orcamento => {
-        dadosOrcamentos.push({
-          key: orcamento.key,
-          ...orcamento.val(),
-        });
+    snapShot.forEach(orcamento => {
+      dadosOrcamentos.push({
+        key: orcamento.key,
+        ...orcamento.val(),
       });
-
-      setOrcamentos(dadosOrcamentos);
     });
 
-    return () => firebase.database().ref('orçamentos').off();
-  });
+    setOrcamentos(dadosOrcamentos);
+  };
 
   return (
     <View style={styles.container}>
