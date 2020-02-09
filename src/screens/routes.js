@@ -9,7 +9,7 @@ import { Colors, Appbar } from 'react-native-paper';
 import Home from './Home';
 import VeiculoFormScreen from './Veiculos/VeiculoFormScreen';
 import CadastroCliente from './CadastroCliente';
-import CadastroOrcamento from './CadastroOrcamento';
+import OrcamentoFormScreen from './Orcamentos/OrcamentoFormScreen';
 import Agendamento from './Agendamento';
 import theme from '../configs/theme';
 import CadastroDespesa from './CadastroDespesa';
@@ -71,10 +71,9 @@ const OrcamentoStack = createStackNavigator(
         title: 'Orçamentos',
       },
     },
-    SolicitarOrcamento: {
-      screen: CadastroOrcamento,
+    OrcamentoFormScreen: {
+      screen: OrcamentoFormScreen,
       navigationOptions: ({ navigation }) => ({
-        title: 'Solicitar orçamento',
         headerLeft: (
           <Appbar.BackAction color={Colors.white} onPress={() => navigation.goBack()} />
         ),

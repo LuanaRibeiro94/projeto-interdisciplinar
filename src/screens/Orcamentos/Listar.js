@@ -37,7 +37,10 @@ const Listar = ({ navigation }) => {
             key={orcamento.key}
             title={orcamento.placa}
             description={orcamento.serviço}
-            onPress={() => {}}
+            onPress={() => navigation.navigate('OrcamentoFormScreen', {
+              edit: true,
+              initialValues: orcamento,
+            })}
             right={props => (
               <Touchable
                 onPress={() => {
@@ -55,7 +58,7 @@ const Listar = ({ navigation }) => {
 
       <BottomFAB
         icon="add"
-        onPress={() => { navigation.navigate('SolicitarOrcamento'); }}
+        onPress={() => { navigation.navigate('OrcamentoFormScreen'); }}
       />
     </View>
   );
