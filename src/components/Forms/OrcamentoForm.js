@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { Formik, Field } from 'formik';
 import { Button } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown';
+import PropTypes from 'prop-types';
 import FormInput from '../FormInput';
 import { getPlacas } from '../../services/firebase/veiculos';
 
@@ -36,7 +37,9 @@ const SERVICOS = [
   },
 ];
 
-const OrcamentoForm = ({ handleChange, submitForm, edit, values }) => {
+const OrcamentoForm = ({
+  handleChange, submitForm, edit, values,
+}) => {
   const [placasVeiculos, setPlacasVeiculos] = useState([]);
 
   useEffect(() => {
@@ -105,6 +108,39 @@ const FormikOrcamentoForm = ({ enviarFormulario, initialValues, edit }) => {
       { props => <OrcamentoForm edit={edit} {...props} />}
     </Formik>
   );
+};
+
+OrcamentoForm.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  submitForm: PropTypes.func.isRequired,
+  edit: PropTypes.bool,
+  values: PropTypes.exact({
+    key: PropTypes.string,
+    placa: PropTypes.string,
+    peça: PropTypes.string,
+    serviço: PropTypes.string,
+    observação: PropTypes.string,
+  }).isRequired,
+};
+
+OrcamentoForm.defaultProps = {
+  edit: false,
+};
+
+FormikOrcamentoForm.propTypes = {
+  enviarFormulario: PropTypes.func.isRequired,
+  initialValues: PropTypes.exact({
+    key: PropTypes.string,
+    placa: PropTypes.string,
+    peça: PropTypes.string,
+    serviço: PropTypes.string,
+    observação: PropTypes.string,
+  }).isRequired,
+  edit: PropTypes.bool,
+};
+
+FormikOrcamentoForm.defaultProps = {
+  edit: false,
 };
 
 export default FormikOrcamentoForm;
