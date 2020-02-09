@@ -36,7 +36,7 @@ const SERVICOS = [
   },
 ];
 
-const OrcamentoForm = ({ handleChange, submitForm }) => {
+const OrcamentoForm = ({ handleChange, submitForm, edit, values }) => {
   const [placasVeiculos, setPlacasVeiculos] = useState([]);
 
   useEffect(() => {
@@ -54,6 +54,7 @@ const OrcamentoForm = ({ handleChange, submitForm }) => {
         rippleDuration={0}
         animationDuration={0}
         onChangeText={handleChange('placa')}
+        value={values.placa}
       />
 
       <Field
@@ -64,6 +65,7 @@ const OrcamentoForm = ({ handleChange, submitForm }) => {
         rippleDuration={0}
         animationDuration={0}
         onChangeText={handleChange('peça')}
+        value={values.peça}
       />
 
       <Field
@@ -74,6 +76,7 @@ const OrcamentoForm = ({ handleChange, submitForm }) => {
         rippleDuration={0}
         animationDuration={0}
         onChangeText={handleChange('serviço')}
+        value={values.serviço}
       />
 
       <Field
@@ -87,18 +90,20 @@ const OrcamentoForm = ({ handleChange, submitForm }) => {
       />
 
       <Button mode="contained" onPress={submitForm} style={{ marginTop: 15 }}>
-        CADASTRAR
+        { edit ? 'ALTERAR' : 'CADASTRAR'}
       </Button>
     </View>
   );
 };
 
-const FormikOrcamentoForm = ({ enviarFormulario }) => {
+const FormikOrcamentoForm = ({ enviarFormulario, initialValues, edit }) => {
   return (
     <Formik
-      component={OrcamentoForm}
+      initialValues={initialValues}
       onSubmit={valores => enviarFormulario(valores)}
-    />
+    >
+      { props => <OrcamentoForm edit={edit} {...props} />}
+    </Formik>
   );
 };
 
