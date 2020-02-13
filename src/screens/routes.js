@@ -10,12 +10,13 @@ import Home from './Home';
 import VeiculoFormScreen from './Veiculos/VeiculoFormScreen';
 import CadastroCliente from './CadastroCliente';
 import OrcamentoFormScreen from './Orcamentos/OrcamentoFormScreen';
-import Agendamento from './Agendamento';
+import AgendamentoFormScreen from './Agendamentos/AgendamentoFormScreen';
 import theme from '../configs/theme';
 import CadastroDespesa from './CadastroDespesa';
 import CadastroServico from './CadastroServico';
 import ListarVeiculo from './Veiculos/Listar';
 import ListarOrcamento from './Orcamentos/Listar';
+import ListarAgendamento from './Agendamentos/Listar';
 import ListarDespesa from './Despesas/Listar';
 import ListarServico from './Servicos/Listar';
 import MenuLateral from '../components/MenuLateral';
@@ -94,20 +95,29 @@ const OrcamentoStack = createStackNavigator(
 
 const AgendamentoStack = createStackNavigator(
   {
-    Agendamento: {
-      screen: Agendamento,
+    Listar: {
+      screen: ListarAgendamento,
       navigationOptions: {
-        title: 'Solicitar agendamento',
-        headerStyle: {
-          backgroundColor: theme.colors.primary,
-        },
-        headerTintColor: Colors.white,
+        title: 'Agendamentos',
       },
+    },
+    AgendamentoFormScreen: {
+      screen: AgendamentoFormScreen,
+      navigationOptions: ({ navigation }) => ({
+        headerLeft: (
+          <Appbar.BackAction color={Colors.white} onPress={() => navigation.goBack()} />
+        ),
+      }),
     },
   },
   {
+    initialRouteName: 'Listar',
     defaultNavigationOptions: ({ navigation }) => ({
       headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+      headerStyle: {
+        backgroundColor: theme.colors.primary,
+      },
+      headerTintColor: Colors.white,
     }),
   },
 );
