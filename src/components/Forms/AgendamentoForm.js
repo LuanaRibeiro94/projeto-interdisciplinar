@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { TouchableWithoutFeedback, View } from 'react-native';
 import { Formik, Field } from 'formik';
 import { Button } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import PropTypes from 'prop-types';
 import FormInput from '../FormInput';
 import { getPlacas } from '../../services/firebase/veiculos';
@@ -23,11 +24,17 @@ const AgendamentoForm = ({
   handleChange, submitForm, edit, values,
 }) => {
   const [placasVeiculos, setPlacasVeiculos] = useState([]);
+  const [mostrarDatePicker, setMostrarDatePicker] = useState(false);
 
   useEffect(() => {
     getPlacas()
       .then(placas => setPlacasVeiculos(placas));
   }, []);
+
+  const onDataChange = (evento, data) => {
+    setMostrarDatePicker(false);
+    if (data) handleChange('data')(data.toString());
+  };
 
   return (
     <View>
@@ -53,6 +60,20 @@ const AgendamentoForm = ({
         value={values.serviço}
       />
 
+      <TouchableWithoutFeedback onPress={() => setMostrarDatePicker(true)}>
+        <View>
+          <View pointerEvents="none">
+            <Field
+              name="data"
+              component={FormInput}
+              label="Data"
+              mode="outlined"
+              onChangeText={handleChange('data')}
+            />
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+
       <Field
         name="observação"
         component={FormInput}
@@ -66,6 +87,14 @@ const AgendamentoForm = ({
       <Button mode="contained" onPress={submitForm} style={{ marginTop: 15 }}>
         { edit ? 'ALTERAR' : 'CADASTRAR'}
       </Button>
+
+      {mostrarDatePicker && (
+        <DateTimePicker
+          value={new Date()}
+          mode="date"
+          onChange={onDataChange}
+        />
+      )}
     </View>
   );
 };
@@ -90,6 +119,7 @@ AgendamentoForm.propTypes = {
     placa: PropTypes.string,
     serviço: PropTypes.string,
     observação: PropTypes.string,
+    data: PropTypes.string,
   }).isRequired,
 };
 
