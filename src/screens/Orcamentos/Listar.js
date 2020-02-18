@@ -57,7 +57,7 @@ const Listar = ({ navigation }) => {
       }
 
       <BottomFAB
-        icon="add"
+        icon="plus"
         onPress={() => { navigation.navigate('OrcamentoFormScreen'); }}
       />
     </View>
