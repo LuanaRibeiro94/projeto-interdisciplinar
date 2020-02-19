@@ -5,6 +5,7 @@ import { Button } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import FormInput from '../FormInput';
 import { getPlacas } from '../../services/firebase/veiculos';
 
@@ -33,7 +34,7 @@ const AgendamentoForm = ({
 
   const onDataChange = (evento, data) => {
     setMostrarDatePicker(false);
-    if (data) handleChange('data')(data.toString());
+    if (data) handleChange('data')(moment(data).format('DD MM YYYY'));
   };
 
   return (
