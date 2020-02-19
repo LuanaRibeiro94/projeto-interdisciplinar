@@ -13,7 +13,7 @@ const Listar = ({ navigation }) => {
         right={props => <List.Icon {...props} icon="more-vert" />}
       />
       <BottomFAB
-        icon="add"
+        icon="plus"
         onPress={() => { navigation.navigate('CadastroServico'); }}
       />
     </View>
