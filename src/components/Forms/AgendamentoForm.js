@@ -135,12 +135,18 @@ FormikAgendamentoForm.propTypes = {
     placa: PropTypes.string,
     serviço: PropTypes.string,
     observação: PropTypes.string,
-  }).isRequired,
+  }),
   edit: PropTypes.bool,
 };
 
 FormikAgendamentoForm.defaultProps = {
   edit: false,
+  initialValues: {
+    key: '',
+    placa: '',
+    serviço: '',
+    observação: '',
+  },
 };
 
 
