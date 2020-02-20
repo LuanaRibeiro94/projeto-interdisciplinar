@@ -4,6 +4,7 @@ import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown';
+import PropTypes from 'prop-types';
 import FormInput from '../FormInput';
 import ErrorText from '../ErrorText';
 
@@ -26,7 +27,9 @@ const MARCAS = [{
 },
 ];
 
-const VeiculoForm = ({ handleChange, submitForm, edit, values }) => {
+const VeiculoForm = ({
+  handleChange, submitForm, edit, values,
+}) => {
   return (
     <View>
       <Field
@@ -97,6 +100,49 @@ const FormikVeiculoForm = ({ enviarFormulario, initialValues, edit }) => {
       { props => <VeiculoForm edit={edit} {...props} />}
     </Formik>
   );
+};
+
+VeiculoForm.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  submitForm: PropTypes.func.isRequired,
+  edit: PropTypes.bool,
+  values: PropTypes.exact({
+    key: PropTypes.string,
+    placa: PropTypes.string,
+    frota: PropTypes.string,
+    chassi: PropTypes.string,
+    modelo: PropTypes.string,
+    marca: PropTypes.string,
+  }).isRequired,
+};
+
+VeiculoForm.defaultProps = {
+  edit: false,
+};
+
+FormikVeiculoForm.propTypes = {
+  enviarFormulario: PropTypes.func.isRequired,
+  initialValues: PropTypes.exact({
+    key: PropTypes.string,
+    placa: PropTypes.string,
+    frota: PropTypes.string,
+    chassi: PropTypes.string,
+    modelo: PropTypes.string,
+    marca: PropTypes.string,
+  }),
+  edit: PropTypes.bool,
+};
+
+FormikVeiculoForm.defaultProps = {
+  edit: false,
+  initialValues: {
+    key: '',
+    placa: '',
+    frota: '',
+    chassi: '',
+    modelo: '',
+    marca: '',
+  },
 };
 
 export default FormikVeiculoForm;
