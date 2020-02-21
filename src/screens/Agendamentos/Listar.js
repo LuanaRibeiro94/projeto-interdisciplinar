@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import firebase from 'firebase';
 import { List } from 'react-native-paper';
 import Touchable from 'react-native-platform-touchable';
@@ -31,31 +31,32 @@ const Listar = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {
-        agendamentos.map(agendamento => (
-          <List.Item
-            key={agendamento.key}
-            title={agendamento.placa}
-            description={agendamento.serviço}
-            onPress={() => navigation.navigate('AgendamentoFormScreen', {
-              edit: true,
-              initialValues: agendamento,
-            })}
-            right={props => (
-              <Touchable
-                onPress={() => {
-                  firebase.database().ref(`agendamentos/${agendamento.key}`).remove();
-                }}
-                background={Touchable.Ripple('rgba(0, 0, 0, 0.2)', true)}
-              >
-                <List.Icon {...props} icon="close" />
-              </Touchable>
-            )
-          }
-          />
-        ))
-      }
-
+      <ScrollView>
+        {
+          agendamentos.map(agendamento => (
+            <List.Item
+              key={agendamento.key}
+              title={agendamento.placa}
+              description={agendamento.serviço}
+              onPress={() => navigation.navigate('AgendamentoFormScreen', {
+                edit: true,
+                initialValues: agendamento,
+              })}
+              right={props => (
+                <Touchable
+                  onPress={() => {
+                    firebase.database().ref(`agendamentos/${agendamento.key}`).remove();
+                  }}
+                  background={Touchable.Ripple('rgba(0, 0, 0, 0.2)', true)}
+                >
+                  <List.Icon {...props} icon="close" />
+                </Touchable>
+              )
+            }
+            />
+          ))
+        }
+      </ScrollView>
       <BottomFAB
         icon="plus"
         onPress={() => { navigation.navigate('AgendamentoFormScreen'); }}
