@@ -135,12 +135,19 @@ FormikOrcamentoForm.propTypes = {
     peça: PropTypes.string,
     serviço: PropTypes.string,
     observação: PropTypes.string,
-  }).isRequired,
+  }),
   edit: PropTypes.bool,
 };
 
 FormikOrcamentoForm.defaultProps = {
   edit: false,
+  initialValues: {
+    key: '',
+    placa: '',
+    peça: '',
+    serviço: '',
+    observação: '',
+  },
 };
 
 export default FormikOrcamentoForm;
