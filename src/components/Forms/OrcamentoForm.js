@@ -114,8 +114,7 @@ OrcamentoForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   submitForm: PropTypes.func.isRequired,
   edit: PropTypes.bool,
-  values: PropTypes.exact({
-    key: PropTypes.string,
+  values: PropTypes.shape({
     placa: PropTypes.string,
     peça: PropTypes.string,
     serviço: PropTypes.string,
@@ -129,8 +128,7 @@ OrcamentoForm.defaultProps = {
 
 FormikOrcamentoForm.propTypes = {
   enviarFormulario: PropTypes.func.isRequired,
-  initialValues: PropTypes.exact({
-    key: PropTypes.string,
+  initialValues: PropTypes.shape({
     placa: PropTypes.string,
     peça: PropTypes.string,
     serviço: PropTypes.string,
@@ -142,7 +140,6 @@ FormikOrcamentoForm.propTypes = {
 FormikOrcamentoForm.defaultProps = {
   edit: false,
   initialValues: {
-    key: '',
     placa: '',
     peça: '',
     serviço: '',

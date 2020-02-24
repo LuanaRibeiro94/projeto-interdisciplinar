@@ -115,8 +115,7 @@ AgendamentoForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   submitForm: PropTypes.func.isRequired,
   edit: PropTypes.bool,
-  values: PropTypes.exact({
-    key: PropTypes.string,
+  values: PropTypes.shape({
     placa: PropTypes.string,
     serviço: PropTypes.string,
     observação: PropTypes.string,
@@ -130,8 +129,7 @@ AgendamentoForm.defaultProps = {
 
 FormikAgendamentoForm.propTypes = {
   enviarFormulario: PropTypes.func.isRequired,
-  initialValues: PropTypes.exact({
-    key: PropTypes.string,
+  initialValues: PropTypes.shape({
     placa: PropTypes.string,
     serviço: PropTypes.string,
     observação: PropTypes.string,
@@ -142,12 +140,10 @@ FormikAgendamentoForm.propTypes = {
 FormikAgendamentoForm.defaultProps = {
   edit: false,
   initialValues: {
-    key: '',
     placa: '',
     serviço: '',
     observação: '',
   },
 };
-
 
 export default FormikAgendamentoForm;
