@@ -11,8 +11,8 @@ import VeiculoFormScreen from './Veiculos/VeiculoFormScreen';
 import CadastroCliente from './CadastroCliente';
 import OrcamentoFormScreen from './Orcamentos/OrcamentoFormScreen';
 import AgendamentoFormScreen from './Agendamentos/AgendamentoFormScreen';
+import DespesaFormScreen from './Despesas/DespesaFormScreen';
 import theme from '../configs/theme';
-import CadastroDespesa from './CadastroDespesa';
 import CadastroServico from './CadastroServico';
 import ListarVeiculo from './Veiculos/Listar';
 import ListarOrcamento from './Orcamentos/Listar';
@@ -129,10 +129,9 @@ const DespesaStack = createStackNavigator(
         title: 'Despesas',
       },
     },
-    CadastroDespesa: {
-      screen: CadastroDespesa,
+    DespesaFormScreen: {
+      screen: DespesaFormScreen,
       navigationOptions: ({ navigation }) => ({
-        title: 'Cadastrar despesa',
         headerLeft: (
           <Appbar.BackAction color={Colors.white} onPress={() => navigation.goBack()} />
         ),
