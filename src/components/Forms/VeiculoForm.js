@@ -106,8 +106,7 @@ VeiculoForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   submitForm: PropTypes.func.isRequired,
   edit: PropTypes.bool,
-  values: PropTypes.exact({
-    key: PropTypes.string,
+  values: PropTypes.shape({
     placa: PropTypes.string,
     frota: PropTypes.string,
     chassi: PropTypes.string,
@@ -122,8 +121,7 @@ VeiculoForm.defaultProps = {
 
 FormikVeiculoForm.propTypes = {
   enviarFormulario: PropTypes.func.isRequired,
-  initialValues: PropTypes.exact({
-    key: PropTypes.string,
+  initialValues: PropTypes.shape({
     placa: PropTypes.string,
     frota: PropTypes.string,
     chassi: PropTypes.string,
@@ -136,7 +134,6 @@ FormikVeiculoForm.propTypes = {
 FormikVeiculoForm.defaultProps = {
   edit: false,
   initialValues: {
-    key: '',
     placa: '',
     frota: '',
     chassi: '',
