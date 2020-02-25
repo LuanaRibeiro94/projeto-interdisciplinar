@@ -12,8 +12,8 @@ import CadastroCliente from './CadastroCliente';
 import OrcamentoFormScreen from './Orcamentos/OrcamentoFormScreen';
 import AgendamentoFormScreen from './Agendamentos/AgendamentoFormScreen';
 import DespesaFormScreen from './Despesas/DespesaFormScreen';
+import ServicoFormScreen from './Servicos/ServicoFormScreen';
 import theme from '../configs/theme';
-import CadastroServico from './CadastroServico';
 import ListarVeiculo from './Veiculos/Listar';
 import ListarOrcamento from './Orcamentos/Listar';
 import ListarAgendamento from './Agendamentos/Listar';
@@ -157,10 +157,9 @@ const ServicoStack = createStackNavigator(
         title: 'Serviços',
       },
     },
-    CadastroServico: {
-      screen: CadastroServico,
+    ServicoFormScreen: {
+      screen: ServicoFormScreen,
       navigationOptions: ({ navigation }) => ({
-        title: 'Cadastrar serviço',
         headerLeft: (
           <Appbar.BackAction color={Colors.white} onPress={() => navigation.goBack()} />
         ),
