@@ -4,9 +4,12 @@ import firebase from 'firebase';
 import { List } from 'react-native-paper';
 import Touchable from 'react-native-platform-touchable';
 import BottomFAB from '../../components/BottomFAB';
+import AlertDialog from '../../components/Dialog';
 
 const Listar = ({ navigation }) => {
   const [despesas, setDespesas] = useState([]);
+  const [exibirDialog, setExibirDialog] = useState(false);
+  const [itemSelecionado, setItemSelecionado] = useState();
 
   useEffect(() => {
     const ref = firebase.database().ref('despesas');
@@ -45,7 +48,8 @@ const Listar = ({ navigation }) => {
               right={props => (
                 <Touchable
                   onPress={() => {
-                    firebase.database().ref(`despesas/${despesa.key}`).remove();
+                    setItemSelecionado(despesa.key);
+                    setExibirDialog(true);
                   }}
                   background={Touchable.Ripple('rgba(0, 0, 0, 0.2)', true)}
                 >
@@ -60,6 +64,16 @@ const Listar = ({ navigation }) => {
       <BottomFAB
         icon="plus"
         onPress={() => { navigation.navigate('DespesaFormScreen'); }}
+      />
+      <AlertDialog
+        visible={exibirDialog}
+        onDismiss={() => setExibirDialog(false)}
+        title="Apagar"
+        content="Apagar item selecionado?"
+        onConfirm={() => {
+          firebase.database().ref(`despesas/${itemSelecionado}`).remove();
+          setExibirDialog(false);
+        }}
       />
     </View>
   );
