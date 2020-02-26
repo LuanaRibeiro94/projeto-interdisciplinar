@@ -4,9 +4,13 @@ import firebase from 'firebase';
 import { List } from 'react-native-paper';
 import Touchable from 'react-native-platform-touchable';
 import BottomFAB from '../../components/BottomFAB';
+import AlertDialog from '../../components/Dialog';
 
 const Listar = ({ navigation }) => {
   const [agendamentos, setAgendamentos] = useState([]);
+  const [exibirDialog, setExibirDialog] = useState(false);
+  const [itemSelecionado, setItemSelecionado] = useState();
+
 
   useEffect(() => {
     const ref = firebase.database().ref('agendamentos');
@@ -45,7 +49,8 @@ const Listar = ({ navigation }) => {
               right={props => (
                 <Touchable
                   onPress={() => {
-                    firebase.database().ref(`agendamentos/${agendamento.key}`).remove();
+                    setItemSelecionado(agendamento.key);
+                    setExibirDialog(true);
                   }}
                   background={Touchable.Ripple('rgba(0, 0, 0, 0.2)', true)}
                 >
@@ -60,6 +65,16 @@ const Listar = ({ navigation }) => {
       <BottomFAB
         icon="plus"
         onPress={() => { navigation.navigate('AgendamentoFormScreen'); }}
+      />
+      <AlertDialog
+        visible={exibirDialog}
+        onDismiss={() => setExibirDialog(false)}
+        title="Apagar"
+        content="Apagar item selecionado?"
+        onConfirm={() => {
+          firebase.database().ref(`agendamentos/${itemSelecionado}`).remove();
+          setExibirDialog(false);
+        }}
       />
     </View>
   );
