@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button } from 'react-native-paper';
@@ -31,7 +31,7 @@ const VeiculoForm = ({
   handleChange, submitForm, edit, values,
 }) => {
   return (
-    <View>
+    <ScrollView>
       <Field
         name="placa"
         component={FormInput}
@@ -86,7 +86,7 @@ const VeiculoForm = ({
       <Button mode="contained" onPress={submitForm} style={{ marginTop: 15 }}>
         { edit ? 'ALTERAR' : 'CADASTRAR'}
       </Button>
-    </View>
+    </ScrollView>
   );
 };
 

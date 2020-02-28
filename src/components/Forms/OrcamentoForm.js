@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { Formik, Field } from 'formik';
 import { Button } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown';
@@ -48,7 +48,7 @@ const OrcamentoForm = ({
   }, []);
 
   return (
-    <View>
+    <ScrollView>
       <Field
         name="placa"
         component={Dropdown}
@@ -95,7 +95,7 @@ const OrcamentoForm = ({
       <Button mode="contained" onPress={submitForm} style={{ marginTop: 15 }}>
         { edit ? 'ALTERAR' : 'CADASTRAR'}
       </Button>
-    </View>
+    </ScrollView>
   );
 };
 
