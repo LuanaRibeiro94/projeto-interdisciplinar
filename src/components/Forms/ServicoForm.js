@@ -3,6 +3,7 @@ import { TouchableWithoutFeedback, View } from 'react-native';
 import { Formik, Field } from 'formik';
 import { Button } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -26,7 +27,7 @@ const ServicoForm = ({
   };
 
   return (
-    <View>
+    <KeyboardAwareScrollView enableOnAndroid>
       <Field
         name="placa"
         component={Dropdown}
@@ -109,7 +110,7 @@ const ServicoForm = ({
           onChange={onDataChange}
         />
       )}
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 

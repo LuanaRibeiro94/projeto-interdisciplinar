@@ -4,6 +4,7 @@ import { Formik, Field } from 'formik';
 import { Button } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import FormInput from '../FormInput';
@@ -26,7 +27,7 @@ const DespesaForm = ({
   };
 
   return (
-    <View>
+    <KeyboardAwareScrollView enableOnAndroid>
       <Field
         name="placa"
         component={Dropdown}
@@ -98,7 +99,7 @@ const DespesaForm = ({
           onChange={onDataChange}
         />
       )}
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 

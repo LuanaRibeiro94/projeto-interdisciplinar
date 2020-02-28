@@ -1,10 +1,10 @@
 import React from 'react';
-import { View } from 'react-native';
 import { TextInput } from 'react-native-paper';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const PessoaJuridicaForm = () => {
   return (
-    <View>
+    <KeyboardAwareScrollView enableOnAndroid>
       <TextInput mode="outlined" label="CNPJ" />
       <TextInput mode="outlined" label="IE" />
       <TextInput mode="outlined" label="Razão Social" />
@@ -14,7 +14,7 @@ const PessoaJuridicaForm = () => {
       <TextInput mode="outlined" label="CEP" />
       <TextInput mode="outlined" label="E-mail" />
       <TextInput mode="outlined" label="Telefone" />
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 

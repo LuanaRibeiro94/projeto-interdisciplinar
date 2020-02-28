@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import { TouchableWithoutFeedback, View, ScrollView } from 'react-native';
 import { Formik, Field } from 'formik';
 import { Button } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown';
@@ -38,7 +38,7 @@ const AgendamentoForm = ({
   };
 
   return (
-    <View>
+    <ScrollView>
       <Field
         name="placa"
         component={Dropdown}
@@ -96,7 +96,7 @@ const AgendamentoForm = ({
           onChange={onDataChange}
         />
       )}
-    </View>
+    </ScrollView>
   );
 };
 
