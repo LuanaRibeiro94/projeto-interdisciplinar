@@ -6,14 +6,17 @@ import VeiculoForm from '../../components/Forms/VeiculoForm';
 const VeiculoFormScreen = ({ navigation }) => {
   const edit = navigation.getParam('edit', false);
   const enviarFormulario = valores => {
+    const userId = firebase.auth().currentUser.uid;
+
     if (edit) {
       const { key } = navigation.getParam('initialValues');
 
-      firebase.database().ref(`/veiculos/${key}`).set(valores)
+      firebase.database().ref('veiculos').child(userId).child(key)
+        .set(valores)
         .then(() => navigation.goBack())
         .catch(() => console.log('Ocorreu algum erro ao alterar o veículo'));
     } else {
-      firebase.database().ref('veiculos').push(valores)
+      firebase.database().ref('veiculos').child(userId).push(valores)
         .then(() => navigation.goBack())
         .catch(() => console.log('Ocorreu algum erro ao cadastrar o veículo'));
     }

@@ -10,9 +10,10 @@ const Listar = ({ navigation }) => {
   const [veiculos, setVeiculos] = useState([]);
   const [exibirDialog, setExibirDialog] = useState(false);
   const [itemSelecionado, setItemSelecionado] = useState();
+  const userId = firebase.auth().currentUser.uid;
 
   useEffect(() => {
-    const ref = firebase.database().ref('veiculos');
+    const ref = firebase.database().ref('veiculos').child(userId);
 
     ref.on('value', onValueChange);
 
@@ -71,7 +72,8 @@ const Listar = ({ navigation }) => {
         title="Apagar"
         content="Apagar item selecionado?"
         onConfirm={() => {
-          firebase.database().ref(`veiculos/${itemSelecionado}`).remove();
+          firebase.database().ref('veiculos').child(userId).child(itemSelecionado)
+            .remove();
           setExibirDialog(false);
         }}
       />
