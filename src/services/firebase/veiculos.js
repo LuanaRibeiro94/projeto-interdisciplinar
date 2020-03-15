@@ -1,6 +1,10 @@
 import firebase from 'firebase';
 
-const getRef = () => firebase.database().ref('/veiculos');
+const getRef = () => {
+  const userId = firebase.auth().currentUser.uid;
+
+  return firebase.database().ref('veiculos').child(userId);
+};
 
 // eslint-disable-next-line import/prefer-default-export
 export const getPlacas = async () => {
