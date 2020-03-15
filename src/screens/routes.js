@@ -13,12 +13,14 @@ import OrcamentoFormScreen from './Orcamentos/OrcamentoFormScreen';
 import AgendamentoFormScreen from './Agendamentos/AgendamentoFormScreen';
 import DespesaFormScreen from './Despesas/DespesaFormScreen';
 import ServicoFormScreen from './Servicos/ServicoFormScreen';
+import LembreteFormScreen from './Lembretes/LembreteFormScreen';
 import theme from '../configs/theme';
 import ListarVeiculo from './Veiculos/Listar';
 import ListarOrcamento from './Orcamentos/Listar';
 import ListarAgendamento from './Agendamentos/Listar';
 import ListarDespesa from './Despesas/Listar';
 import ListarServico from './Servicos/Listar';
+import ListarLembrete from './Lembretes/Listar';
 import MenuLateral from '../components/MenuLateral';
 import * as Icones from '../components/Icones';
 import Login from './Login';
@@ -178,6 +180,35 @@ const ServicoStack = createStackNavigator(
   },
 );
 
+const LembreteStack = createStackNavigator(
+  {
+    Listar: {
+      screen: ListarLembrete,
+      navigationOptions: {
+        title: 'Lembretes',
+      },
+    },
+    LembreteFormScreen: {
+      screen: LembreteFormScreen,
+      navigationOptions: ({ navigation }) => ({
+        headerLeft: (
+          <Appbar.BackAction color={Colors.white} onPress={() => navigation.goBack()} />
+        ),
+      }),
+    },
+  },
+  {
+    initialRouteName: 'Listar',
+    defaultNavigationOptions: ({ navigation }) => ({
+      headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+      headerStyle: {
+        backgroundColor: theme.colors.primary,
+      },
+      headerTintColor: Colors.white,
+    }),
+  },
+);
+
 const AutenticacaoStack = createStackNavigator({
   Login: {
     screen: Login,
@@ -241,7 +272,15 @@ const AppNavigator = createDrawerNavigator(
         drawerIcon: (size, color) => <Icones.ServicoIcone size={size} color={color} />,
       },
     },
+    Lembrete: {
+      screen: LembreteStack,
+      navigationOptions: {
+        drawerLabel: 'Lembretes',
+        drawerIcon: (size, color) => <Icones.LembreteIcone size={size} color={color} />,
+      },
+    },
   },
+
   {
     initialRouteName: 'Home',
     contentComponent: MenuLateral,
