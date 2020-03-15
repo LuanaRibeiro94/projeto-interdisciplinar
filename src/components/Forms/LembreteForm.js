@@ -1,27 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { TouchableWithoutFeedback, View, ScrollView } from 'react-native';
-import { Formik, Field } from 'formik';
+import { Formik, Field, ErrorMessage } from 'formik';
 import { Button } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import * as Yup from 'yup';
 import FormInput from '../FormInput';
+import ErrorText from '../ErrorText';
 import { getPlacas } from '../../services/firebase/veiculos';
 
-const SERVICOS = [
-  {
-    value: 'Troca de óleo',
-  },
-  {
-    value: 'Trocar lona de freio',
-  },
-  {
-    value: 'Substituir válvula APS',
-  },
-];
+const validationSchema = Yup.object().shape({
+  descricao: Yup.string()
+    .required('Este campo é obrigatório'),
+});
 
-const AgendamentoForm = ({
+const LembreteForm = ({
   handleChange, submitForm, edit, values,
 }) => {
   const [placasVeiculos, setPlacasVeiculos] = useState([]);
@@ -51,15 +46,14 @@ const AgendamentoForm = ({
       />
 
       <Field
-        name="serviço"
-        component={Dropdown}
-        label="Serviço"
-        data={SERVICOS}
-        rippleDuration={0}
-        animationDuration={0}
-        onChangeText={handleChange('serviço')}
-        value={values.serviço}
+        name="descricao"
+        component={FormInput}
+        label="Descrição"
+        mode="outlined"
+        onChangeText={handleChange('descricao')}
       />
+
+      <ErrorMessage name="descricao" component={ErrorText} />
 
       <TouchableWithoutFeedback onPress={() => setMostrarDatePicker(true)}>
         <View>
@@ -74,16 +68,6 @@ const AgendamentoForm = ({
           </View>
         </View>
       </TouchableWithoutFeedback>
-
-      <Field
-        name="observação"
-        component={FormInput}
-        mode="outlined"
-        label="Observação"
-        multiline
-        numberOfLines={8}
-        onChangeText={handleChange('observação')}
-      />
 
       <Button mode="contained" onPress={submitForm} style={{ marginTop: 15 }}>
         { edit ? 'ALTERAR' : 'CADASTRAR'}
@@ -100,52 +84,50 @@ const AgendamentoForm = ({
   );
 };
 
-const FormikAgendamentoForm = ({ enviarFormulario, initialValues, edit }) => {
+const FormikLembreteForm = ({ enviarFormulario, initialValues, edit }) => {
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={valores => enviarFormulario(valores)}
+      validationSchema={validationSchema}
     >
-      { props => <AgendamentoForm edit={edit} {...props} />}
+      { props => <LembreteForm edit={edit} {...props} />}
     </Formik>
   );
 };
 
-AgendamentoForm.propTypes = {
+LembreteForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   submitForm: PropTypes.func.isRequired,
   edit: PropTypes.bool,
   values: PropTypes.shape({
     placa: PropTypes.string,
-    serviço: PropTypes.string,
-    observação: PropTypes.string,
+    descricao: PropTypes.string,
     data: PropTypes.string,
   }).isRequired,
 };
 
-AgendamentoForm.defaultProps = {
+LembreteForm.defaultProps = {
   edit: false,
 };
 
-FormikAgendamentoForm.propTypes = {
+FormikLembreteForm.propTypes = {
   enviarFormulario: PropTypes.func.isRequired,
   initialValues: PropTypes.shape({
     placa: PropTypes.string,
-    serviço: PropTypes.string,
-    observação: PropTypes.string,
+    descricao: PropTypes.string,
     data: PropTypes.string,
   }),
   edit: PropTypes.bool,
 };
 
-FormikAgendamentoForm.defaultProps = {
+FormikLembreteForm.defaultProps = {
   edit: false,
   initialValues: {
     placa: '',
-    serviço: '',
-    observação: '',
+    descricao: '',
     data: '',
   },
 };
 
-export default FormikAgendamentoForm;
+export default FormikLembreteForm;
