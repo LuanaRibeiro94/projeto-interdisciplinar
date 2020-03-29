@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, TouchableWithoutFeedback, View } from 'react-native';
 import { Formik, Field } from 'formik';
 import { Button } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown';
 import PropTypes from 'prop-types';
+import * as DocumentPicker from 'expo-document-picker';
 import FormInput from '../FormInput';
 import { getPlacas } from '../../services/firebase/veiculos';
 
@@ -38,7 +39,7 @@ const SERVICOS = [
 ];
 
 const OrcamentoForm = ({
-  handleChange, submitForm, edit, values,
+  handleChange, submitForm, edit, values, setFieldValue,
 }) => {
   const [placasVeiculos, setPlacasVeiculos] = useState([]);
 
@@ -46,6 +47,13 @@ const OrcamentoForm = ({
     getPlacas()
       .then(placas => setPlacasVeiculos(placas));
   }, []);
+
+  const onArquivoSelecionado = async () => {
+    const { name = '', uri = '' } = await DocumentPicker.getDocumentAsync({});
+
+    setFieldValue('anexo.nome', name);
+    setFieldValue('anexo.uri', uri);
+  };
 
   return (
     <ScrollView>
@@ -82,6 +90,19 @@ const OrcamentoForm = ({
         value={values.serviço}
       />
 
+      <TouchableWithoutFeedback onPress={onArquivoSelecionado}>
+        <View>
+          <View pointerEvents="none">
+            <Field
+              name="anexo.nome"
+              component={FormInput}
+              label="Anexo"
+              mode="outlined"
+            />
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+
       <Field
         name="observação"
         component={FormInput}
@@ -114,6 +135,7 @@ OrcamentoForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
   submitForm: PropTypes.func.isRequired,
   edit: PropTypes.bool,
+  setFieldValue: PropTypes.func.isRequired,
   values: PropTypes.shape({
     placa: PropTypes.string,
     peça: PropTypes.string,
@@ -132,6 +154,10 @@ FormikOrcamentoForm.propTypes = {
     placa: PropTypes.string,
     peça: PropTypes.string,
     serviço: PropTypes.string,
+    anexo: PropTypes.shape({
+      nome: PropTypes.string,
+      uri: PropTypes.string,
+    }),
     observação: PropTypes.string,
   }),
   edit: PropTypes.bool,
@@ -143,6 +169,10 @@ FormikOrcamentoForm.defaultProps = {
     placa: '',
     peça: '',
     serviço: '',
+    anexo: {
+      nome: '',
+      uri: '',
+    },
     observação: '',
   },
 };
