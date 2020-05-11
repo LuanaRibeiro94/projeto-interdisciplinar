@@ -6,14 +6,17 @@ import ServicoForm from '../../components/Forms/ServicoForm';
 const ServicoFormScreen = ({ navigation }) => {
   const edit = navigation.getParam('edit', false);
   const enviarFormulario = valores => {
+    const userId = firebase.auth().currentUser.uid;
+
     if (edit) {
       const { key } = navigation.getParam('initialValues');
 
-      firebase.database().ref(`/servicos/${key}`).set(valores)
+      firebase.database().ref('servicos').child(userId).child(key)
+        .set(valores)
         .then(() => navigation.goBack())
         .catch(() => console.log('Ocorreu algum erro ao alterar o serviço'));
     } else {
-      firebase.database().ref('servicos').push(valores)
+      firebase.database().ref('servicos').child(userId).push(valores)
         .then(() => navigation.goBack())
         .catch(() => console.log('Ocorreu algum erro ao cadastrar o serviço'));
     }

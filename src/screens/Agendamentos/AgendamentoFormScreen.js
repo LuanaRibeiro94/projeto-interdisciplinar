@@ -6,14 +6,17 @@ import AgendamentoForm from '../../components/Forms/AgendamentoForm';
 const AgendamentoFormScreen = ({ navigation }) => {
   const edit = navigation.getParam('edit', false);
   const enviarFormulario = valores => {
+    const userId = firebase.auth().currentUser.uid;
+
     if (edit) {
       const { key } = navigation.getParam('initialValues');
 
-      firebase.database().ref(`/agendamentos/${key}`).set(valores)
+      firebase.database().ref('agendamentos').child(userId).child(key)
+        .set(valores)
         .then(() => navigation.goBack())
         .catch(() => console.log('Ocorreu algum erro ao alterar o agendamento'));
     } else {
-      firebase.database().ref('agendamentos').push(valores)
+      firebase.database().ref('agendamentos').child(userId).push(valores)
         .then(() => navigation.goBack())
         .catch(() => console.log('Ocorreu algum erro ao cadastrar o agendamento'));
     }

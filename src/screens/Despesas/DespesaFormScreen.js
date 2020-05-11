@@ -6,14 +6,17 @@ import DespesaForm from '../../components/Forms/DespesaForm';
 const DespesaFormScreen = ({ navigation }) => {
   const edit = navigation.getParam('edit', false);
   const enviarFormulario = valores => {
+    const userId = firebase.auth().currentUser.uid;
+
     if (edit) {
       const { key } = navigation.getParam('initialValues');
 
-      firebase.database().ref(`/despesas/${key}`).set(valores)
+      firebase.database().ref('despesas').child(userId).child(key)
+        .set(valores)
         .then(() => navigation.goBack())
         .catch(() => console.log('Ocorreu algum erro ao alterar a despesa'));
     } else {
-      firebase.database().ref('despesas').push(valores)
+      firebase.database().ref('despesas').child(userId).push(valores)
         .then(() => navigation.goBack())
         .catch(() => console.log('Ocorreu algum erro ao cadastrar a despesa'));
     }
