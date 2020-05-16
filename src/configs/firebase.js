@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import { YellowBox } from 'react-native';
 
 const config = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -9,3 +10,5 @@ const config = {
 };
 
 firebase.initializeApp(config);
+
+YellowBox.ignoreWarnings(['Setting a timer']);
