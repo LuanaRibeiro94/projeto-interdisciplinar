@@ -45,7 +45,7 @@ const Listar = ({ navigation }) => {
         right={props => (
           <Touchable
             onPress={() => {
-              setItemSelecionado(item.key);
+              setItemSelecionado(item);
               setExibirDialog(true);
             }}
             background={Touchable.Ripple('rgba(0, 0, 0, 0.2)', true)}

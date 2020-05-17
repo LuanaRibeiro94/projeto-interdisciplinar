@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import firebase from 'firebase';
-import { List } from 'react-native-paper';
+import { Divider, List } from 'react-native-paper';
 import Touchable from 'react-native-platform-touchable';
 import BottomFAB from '../../components/BottomFAB';
 import AlertDialog from '../../components/Dialog';
@@ -67,6 +67,7 @@ const Listar = ({ navigation }) => {
         keyExtractor={item => item.key}
         ListEmptyComponent={<EmptyState />}
         contentContainerStyle={styles.flatlist}
+        ItemSeparatorComponent={() => <Divider />}
       />
       <BottomFAB
         icon="plus"
