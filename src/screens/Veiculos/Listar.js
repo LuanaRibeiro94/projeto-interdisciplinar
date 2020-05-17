@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import firebase from 'firebase';
 import { List } from 'react-native-paper';
 import Touchable from 'react-native-platform-touchable';
 import BottomFAB from '../../components/BottomFAB';
 import AlertDialog from '../../components/Dialog';
+import EmptyState from './EmptyState';
 
 const Listar = ({ navigation }) => {
   const [veiculos, setVeiculos] = useState([]);
@@ -33,35 +34,40 @@ const Listar = ({ navigation }) => {
     setVeiculos(dadosVeiculos);
   };
 
+  const renderVeiculo = ({ item }) => {
+    return (
+      <List.Item
+        title={item.marca}
+        description={item.placa}
+        onPress={() => navigation.navigate('VeiculoFormScreen', {
+          edit: true,
+          initialValues: item,
+        })}
+        right={props => (
+          <Touchable
+            onPress={() => {
+              setItemSelecionado(item.key);
+              setExibirDialog(true);
+            }}
+            background={Touchable.Ripple('rgba(0, 0, 0, 0.2)', true)}
+          >
+            <List.Icon {...props} icon="close" />
+          </Touchable>
+        )
+        }
+      />
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <ScrollView>
-        {
-          veiculos.map(veiculo => (
-            <List.Item
-              key={veiculo.key}
-              title={veiculo.marca}
-              description={veiculo.placa}
-              onPress={() => navigation.navigate('VeiculoFormScreen', {
-                edit: true,
-                initialValues: veiculo,
-              })}
-              right={props => (
-                <Touchable
-                  onPress={() => {
-                    setItemSelecionado(veiculo.key);
-                    setExibirDialog(true);
-                  }}
-                  background={Touchable.Ripple('rgba(0, 0, 0, 0.2)', true)}
-                >
-                  <List.Icon {...props} icon="close" />
-                </Touchable>
-              )
-            }
-            />
-          ))
-        }
-      </ScrollView>
+      <FlatList
+        data={veiculos}
+        renderItem={renderVeiculo}
+        keyExtractor={item => item.key}
+        ListEmptyComponent={<EmptyState />}
+        contentContainerStyle={styles.flatlist}
+      />
       <BottomFAB
         icon="plus"
         onPress={() => { navigation.navigate('VeiculoFormScreen'); }}
@@ -85,6 +91,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+  },
+  flatlist: {
+    flexGrow: 1,
   },
 });
 

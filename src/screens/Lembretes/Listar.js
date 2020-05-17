@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import firebase from 'firebase';
 import { List } from 'react-native-paper';
 import Touchable from 'react-native-platform-touchable';
 import BottomFAB from '../../components/BottomFAB';
 import AlertDialog from '../../components/Dialog';
+import EmptyState from './EmptyState';
 
 const Listar = ({ navigation }) => {
   const [lembretes, setLembretes] = useState([]);
   const [exibirDialog, setExibirDialog] = useState(false);
   const [itemSelecionado, setItemSelecionado] = useState();
+  const userId = firebase.auth().currentUser.uid;
 
   useEffect(() => {
-    const ref = firebase.database().ref('lembretes');
+    const ref = firebase.database().ref('lembretes').child(userId);
 
     ref.on('value', onValueChange);
 
@@ -32,35 +34,41 @@ const Listar = ({ navigation }) => {
     setLembretes(dadosLembretes);
   };
 
+  const renderDespesa = ({ item }) => {
+    return (
+      <List.Item
+        key={item.key}
+        title={item.descricao}
+        description={item.data}
+        onPress={() => navigation.navigate('LembreteFormScreen', {
+          edit: true,
+          initialValues: item,
+        })}
+        right={props => (
+          <Touchable
+            onPress={() => {
+              setItemSelecionado(item.key);
+              setExibirDialog(true);
+            }}
+            background={Touchable.Ripple('rgba(0, 0, 0, 0.2)', true)}
+          >
+            <List.Icon {...props} icon="close" />
+          </Touchable>
+        )
+        }
+      />
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <ScrollView>
-        {
-          lembretes.map(lembrete => (
-            <List.Item
-              key={lembrete.key}
-              title={lembrete.placa}
-              description={lembrete.placa}
-              onPress={() => navigation.navigate('LembreteFormScreen', {
-                edit: true,
-                initialValues: lembrete,
-              })}
-              right={props => (
-                <Touchable
-                  onPress={() => {
-                    setItemSelecionado(lembrete.key);
-                    setExibirDialog(true);
-                  }}
-                  background={Touchable.Ripple('rgba(0, 0, 0, 0.2)', true)}
-                >
-                  <List.Icon {...props} icon="close" />
-                </Touchable>
-              )
-            }
-            />
-          ))
-        }
-      </ScrollView>
+      <FlatList
+        data={lembretes}
+        renderItem={renderDespesa}
+        keyExtractor={item => item.key}
+        ListEmptyComponent={<EmptyState />}
+        contentContainerStyle={styles.flatlist}
+      />
       <BottomFAB
         icon="plus"
         onPress={() => { navigation.navigate('LembreteFormScreen'); }}
@@ -71,7 +79,8 @@ const Listar = ({ navigation }) => {
         title="Apagar"
         content="Apagar item selecionado?"
         onConfirm={() => {
-          firebase.database().ref(`lembretes/${itemSelecionado}`).remove();
+          firebase.database().ref('lembretes').child(userId).child(itemSelecionado)
+            .remove();
           setExibirDialog(false);
         }}
       />
@@ -83,6 +92,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+  },
+  flatlist: {
+    flexGrow: 1,
   },
 });
 

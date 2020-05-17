@@ -1,17 +1,11 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Avatar, Colors, Title, Subheading } from 'react-native-paper';
+import { Colors, Title } from 'react-native-paper';
 
 const Home = () => {
   return (
     <View style={styles.container}>
-      <Avatar.Image
-        source={require('../assets/truck.png')}
-        size={100}
-        style={styles.avatar}
-      />
-      <Title>Nenhum veículo encontrado.</Title>
-      <Subheading>Por favor use o botão de menu para inserir um novo.</Subheading>
+      <Title style={styles.title}>Seja bem-vindo.</Title>
     </View>
   );
 };
@@ -23,8 +17,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  avatar: {
-    backgroundColor: Colors.grey200,
+  title: {
+    color: '#00CED1',
   },
 });
 

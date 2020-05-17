@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import firebase from 'firebase';
 import OrcamentoForm from '../../components/Forms/OrcamentoForm';
+import { criarOrcamento, editarOrcamento } from '../../services/firebase/orcamentos';
 
 const OrcamentoFormScreen = ({ navigation }) => {
   const edit = navigation.getParam('edit', false);
@@ -9,11 +9,11 @@ const OrcamentoFormScreen = ({ navigation }) => {
     if (edit) {
       const { key } = navigation.getParam('initialValues');
 
-      firebase.database().ref(`/orçamentos/${key}`).set(valores)
+      editarOrcamento(key, valores)
         .then(() => navigation.goBack())
         .catch(() => console.log('Ocorreu algum erro ao alterar o orçamento'));
     } else {
-      firebase.database().ref('orçamentos').push(valores)
+      criarOrcamento(valores)
         .then(() => navigation.goBack())
         .catch(() => console.log('Ocorreu algum erro ao cadastrar o orçamento'));
     }

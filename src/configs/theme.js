@@ -4,7 +4,7 @@ export default {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#021f54',
-    accent: '#A9A9A9',
+    primary: '#00BFFF',
+    accent: '#DCDCDC',
   },
 };
