@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import firebase from 'firebase';
-import { List } from 'react-native-paper';
+import { Divider, List } from 'react-native-paper';
 import Touchable from 'react-native-platform-touchable';
 import BottomFAB from '../../components/BottomFAB';
 import AlertDialog from '../../components/Dialog';
@@ -34,12 +34,12 @@ const Listar = ({ navigation }) => {
     setLembretes(dadosLembretes);
   };
 
-  const renderDespesa = ({ item }) => {
+  const renderLembrete = ({ item }) => {
     return (
       <List.Item
         key={item.key}
-        title={item.descricao}
-        description={item.data}
+        title={item.placa}
+        description={`${item.descricao} - ${item.data}`}
         onPress={() => navigation.navigate('LembreteFormScreen', {
           edit: true,
           initialValues: item,
@@ -64,10 +64,11 @@ const Listar = ({ navigation }) => {
     <View style={styles.container}>
       <FlatList
         data={lembretes}
-        renderItem={renderDespesa}
+        renderItem={renderLembrete}
         keyExtractor={item => item.key}
         ListEmptyComponent={<EmptyState />}
         contentContainerStyle={styles.flatlist}
+        ItemSeparatorComponent={() => <Divider />}
       />
       <BottomFAB
         icon="plus"
