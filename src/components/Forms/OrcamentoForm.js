@@ -113,7 +113,7 @@ const OrcamentoForm = ({
         onChangeText={handleChange('observação')}
       />
 
-      <Button mode="contained" onPress={submitForm} style={{ marginTop: 15 }}>
+      <Button mode="contained" onPress={submitForm} style={{ marginTop: 15 }} labelStyle={{ color: 'white' }}>
         { edit ? 'ALTERAR' : 'CADASTRAR'}
       </Button>
     </ScrollView>

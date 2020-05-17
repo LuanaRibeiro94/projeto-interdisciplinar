@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import firebase from 'firebase';
-import { List } from 'react-native-paper';
+import { Divider, List } from 'react-native-paper';
 import Touchable from 'react-native-platform-touchable';
 import BottomFAB from '../../components/BottomFAB';
 import AlertDialog from '../../components/Dialog';
 import EmptyState from './EmptyState';
+import { listarOrcamentos, excluirOrcamento } from '../../services/firebase/orcamentos';
 
 const Listar = ({ navigation }) => {
   const [orcamentos, setOrcamentos] = useState([]);
   const [exibirDialog, setExibirDialog] = useState(false);
   const [itemSelecionado, setItemSelecionado] = useState();
-  const userId = firebase.auth().currentUser.uid;
 
   useEffect(() => {
-    const ref = firebase.database().ref('orcamentos').child(userId);
+    const ref = listarOrcamentos();
 
     ref.on('value', onValueChange);
 
@@ -67,6 +66,7 @@ const Listar = ({ navigation }) => {
         keyExtractor={item => item.key}
         ListEmptyComponent={<EmptyState />}
         contentContainerStyle={styles.flatlist}
+        ItemSeparatorComponent={() => <Divider />}
       />
       <BottomFAB
         icon="plus"
@@ -78,8 +78,7 @@ const Listar = ({ navigation }) => {
         title="Apagar"
         content="Apagar item selecionado?"
         onConfirm={() => {
-          firebase.database().ref('orcamentos').child(userId).child(itemSelecionado)
-            .remove();
+          excluirOrcamento(itemSelecionado);
           setExibirDialog(false);
         }}
       />

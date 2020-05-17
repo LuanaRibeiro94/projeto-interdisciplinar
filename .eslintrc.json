@@ -11,5 +11,6 @@
     "global-require": "off",
     "no-use-before-define": "off",
     "react/prop-types": ["error", { "ignore": ["navigation"] }]
-  }
+  },
+  "globals": { "fetch": true }
 }
