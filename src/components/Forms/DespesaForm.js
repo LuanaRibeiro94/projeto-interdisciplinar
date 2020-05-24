@@ -23,7 +23,7 @@ const DespesaForm = ({
 
   const onDataChange = (evento, data) => {
     setMostrarDatePicker(false);
-    if (data) handleChange('data')(moment(data).format('DD MM YYYY'));
+    if (data) handleChange('data')(moment(data).format('DD/MM/YYYY'));
   };
 
   return (
