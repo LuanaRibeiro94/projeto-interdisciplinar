@@ -22,6 +22,7 @@ import ListarDespesa from './Despesas/Listar';
 import ListarServico from './Servicos/Listar';
 import ListarLembrete from './Lembretes/Listar';
 import MenuLateral from '../components/MenuLateral';
+import SobreNos from './SobreNos';
 import * as Icones from '../components/Icones';
 import Login from './Login';
 import Splash from './Splash';
@@ -277,6 +278,13 @@ const AppNavigator = createDrawerNavigator(
       navigationOptions: {
         drawerLabel: 'Lembretes',
         drawerIcon: (size, color) => <Icones.LembreteIcone size={size} color={color} />,
+      },
+    },
+    SobreNos: {
+      screen: SobreNos,
+      navigationOptions: {
+        drawerLabel: 'Sobre nós',
+        drawerIcon: (size, color) => <Icones.SobreNosIcone size={size} color={color} />,
       },
     },
   },
