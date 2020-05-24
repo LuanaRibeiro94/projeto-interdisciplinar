@@ -75,8 +75,8 @@ const Listar = ({ navigation }) => {
       <AlertDialog
         visible={exibirDialog}
         onDismiss={() => setExibirDialog(false)}
-        title="Apagar"
-        content="Apagar item selecionado?"
+        title="Excluir orçamento?"
+        content="Este orçamento e todas suas informações serão excluídas. Você pode editá-lo caso deseje mudar algo."
         onConfirm={() => {
           excluirOrcamento(itemSelecionado);
           setExibirDialog(false);

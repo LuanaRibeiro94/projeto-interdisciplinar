@@ -76,8 +76,8 @@ const Listar = ({ navigation }) => {
       <AlertDialog
         visible={exibirDialog}
         onDismiss={() => setExibirDialog(false)}
-        title="Apagar"
-        content="Apagar item selecionado?"
+        title="Excluir veículo?"
+        content="Este veículo e todas suas informações serão excluídas. Você pode editá-lo caso deseje mudar algo."
         onConfirm={() => {
           firebase.database().ref('veiculos').child(userId).child(itemSelecionado)
             .remove();

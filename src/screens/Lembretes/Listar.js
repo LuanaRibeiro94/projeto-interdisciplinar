@@ -77,8 +77,8 @@ const Listar = ({ navigation }) => {
       <AlertDialog
         visible={exibirDialog}
         onDismiss={() => setExibirDialog(false)}
-        title="Apagar"
-        content="Apagar item selecionado?"
+        title="Excluir lembrete?"
+        content="Este lembrete e todas suas informações serão excluídas. Você pode editá-lo caso deseje mudar algo."
         onConfirm={() => {
           firebase.database().ref('lembretes').child(userId).child(itemSelecionado)
             .remove();
