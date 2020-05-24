@@ -10,31 +10,64 @@ import { getPlacas } from '../../services/firebase/veiculos';
 
 const PECAS = [
   {
-    value: 'Filtro racor',
+    value: 'Anel',
   },
   {
-    value: 'Filtro diesel',
+    value: 'Alternador',
   },
   {
-    value: 'Filtro combustível motor',
+    value: 'Compressor',
   },
   {
-    value: 'Válvula APS',
+    value: 'Filtro',
+  },
+  {
+    value: 'Junta',
   },
   {
     value: 'Lona de freio',
+  },
+  {
+    value: 'Mangueira',
+  },
+  {
+    value: 'óleo',
+  },
+  {
+    value: 'Radiador',
+  },
+  {
+    value: 'Válvula',
   },
 ];
 
 const SERVICOS = [
   {
-    value: 'Troca de óleo',
+    value: 'Remoção e instalação do alternador',
   },
   {
-    value: 'Trocar lona de freio',
+    value: 'Remoção e instalação do compressor',
   },
   {
-    value: 'Substituir válvula APS',
+    value: 'Remoção e instalação do radiador',
+  },
+  {
+    value: 'Revisão',
+  },
+  {
+    value: 'Substituir anel de camisa',
+  },
+  {
+    value: 'Substituir junta do cabeçote',
+  },
+  {
+    value: 'Substituir lona de freio',
+  },
+  {
+    value: 'Substituir mangueira do radiador',
+  },
+  {
+    value: 'Substituir válvula',
   },
 ];
 
