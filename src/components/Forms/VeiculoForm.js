@@ -10,11 +10,10 @@ import ErrorText from '../ErrorText';
 
 const validationSchema = Yup.object().shape({
   placa: Yup.string()
-    .length(7, 'Formato inválido')
+    .length(7, 'Formato inválido. É necessário informar 7 caracteres sendo letras e números')
     .required('Este campo é obrigatório'),
   chassi: Yup.string()
-    .required('Este campo é obrigatório'),
-  modelo: Yup.string()
+    .length(7, 'É necessário informar os 7 números finais da descrição do chassi no documento')
     .required('Este campo é obrigatório'),
 });
 
