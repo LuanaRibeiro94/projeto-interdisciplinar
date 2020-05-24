@@ -10,7 +10,8 @@
     "arrow-parens": "off",
     "global-require": "off",
     "no-use-before-define": "off",
-    "react/prop-types": ["error", { "ignore": ["navigation"] }]
+    "react/prop-types": ["error", { "ignore": ["navigation"] }],
+    "react/forbid-prop-types": "off"
   },
   "globals": { "fetch": true }
 }

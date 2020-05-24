@@ -1,11 +1,12 @@
 import React from 'react';
 import {
   createAppContainer,
-  createDrawerNavigator,
-  createStackNavigator,
   createSwitchNavigator,
 } from 'react-navigation';
-import { Colors, Appbar } from 'react-native-paper';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
+import { Appbar, Colors } from 'react-native-paper';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import Home from './Home';
 import VeiculoFormScreen from './Veiculos/VeiculoFormScreen';
 import CadastroCliente from './CadastroCliente';
@@ -21,7 +22,7 @@ import ListarAgendamento from './Agendamentos/Listar';
 import ListarDespesa from './Despesas/Listar';
 import ListarServico from './Servicos/Listar';
 import ListarLembrete from './Lembretes/Listar';
-import MenuLateral from '../components/MenuLateral';
+import Outros from './Outros';
 import SobreNos from './SobreNos';
 import * as Icones from '../components/Icones';
 import Login from './Login';
@@ -48,46 +49,11 @@ const VeiculoStack = createStackNavigator(
     },
     VeiculoFormScreen: {
       screen: VeiculoFormScreen,
-      navigationOptions: ({ navigation }) => ({
-        headerLeft: (
-          <Appbar.BackAction color={Colors.white} onPress={() => navigation.goBack()} />
-        ),
-      }),
     },
   },
   {
     initialRouteName: 'Listar',
-    defaultNavigationOptions: ({ navigation }) => ({
-      headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
-      headerStyle: {
-        backgroundColor: theme.colors.primary,
-      },
-      headerTintColor: Colors.white,
-    }),
-  },
-);
-
-const OrcamentoStack = createStackNavigator(
-  {
-    Listar: {
-      screen: ListarOrcamento,
-      navigationOptions: {
-        title: 'Orçamentos',
-      },
-    },
-    OrcamentoFormScreen: {
-      screen: OrcamentoFormScreen,
-      navigationOptions: ({ navigation }) => ({
-        headerLeft: (
-          <Appbar.BackAction color={Colors.white} onPress={() => navigation.goBack()} />
-        ),
-      }),
-    },
-  },
-  {
-    initialRouteName: 'Listar',
-    defaultNavigationOptions: ({ navigation }) => ({
-      headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+    defaultNavigationOptions: () => ({
       headerStyle: {
         backgroundColor: theme.colors.primary,
       },
@@ -100,23 +66,20 @@ const AgendamentoStack = createStackNavigator(
   {
     Listar: {
       screen: ListarAgendamento,
-      navigationOptions: {
+      navigationOptions: ({ navigation }) => ({
         title: 'Agendamentos',
-      },
+        headerLeft: (
+          <Appbar.BackAction color={Colors.white} onPress={() => navigation.navigate('Outros')} />
+        ),
+      }),
     },
     AgendamentoFormScreen: {
       screen: AgendamentoFormScreen,
-      navigationOptions: ({ navigation }) => ({
-        headerLeft: (
-          <Appbar.BackAction color={Colors.white} onPress={() => navigation.goBack()} />
-        ),
-      }),
     },
   },
   {
     initialRouteName: 'Listar',
-    defaultNavigationOptions: ({ navigation }) => ({
-      headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+    defaultNavigationOptions: () => ({
       headerStyle: {
         backgroundColor: theme.colors.primary,
       },
@@ -128,23 +91,20 @@ const DespesaStack = createStackNavigator(
   {
     Listar: {
       screen: ListarDespesa,
-      navigationOptions: {
+      navigationOptions: ({ navigation }) => ({
         title: 'Despesas',
-      },
+        headerLeft: (
+          <Appbar.BackAction color={Colors.white} onPress={() => navigation.navigate('Outros')} />
+        ),
+      }),
     },
     DespesaFormScreen: {
       screen: DespesaFormScreen,
-      navigationOptions: ({ navigation }) => ({
-        headerLeft: (
-          <Appbar.BackAction color={Colors.white} onPress={() => navigation.goBack()} />
-        ),
-      }),
     },
   },
   {
     initialRouteName: 'Listar',
-    defaultNavigationOptions: ({ navigation }) => ({
-      headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+    defaultNavigationOptions: () => ({
       headerStyle: {
         backgroundColor: theme.colors.primary,
       },
@@ -156,23 +116,20 @@ const ServicoStack = createStackNavigator(
   {
     Listar: {
       screen: ListarServico,
-      navigationOptions: {
+      navigationOptions: ({ navigation }) => ({
         title: 'Serviços',
-      },
+        headerLeft: (
+          <Appbar.BackAction color={Colors.white} onPress={() => navigation.navigate('Outros')} />
+        ),
+      }),
     },
     ServicoFormScreen: {
       screen: ServicoFormScreen,
-      navigationOptions: ({ navigation }) => ({
-        headerLeft: (
-          <Appbar.BackAction color={Colors.white} onPress={() => navigation.goBack()} />
-        ),
-      }),
     },
   },
   {
     initialRouteName: 'Listar',
-    defaultNavigationOptions: ({ navigation }) => ({
-      headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+    defaultNavigationOptions: () => ({
       headerStyle: {
         backgroundColor: theme.colors.primary,
       },
@@ -185,23 +142,96 @@ const LembreteStack = createStackNavigator(
   {
     Listar: {
       screen: ListarLembrete,
-      navigationOptions: {
+      navigationOptions: ({ navigation }) => ({
         title: 'Lembretes',
-      },
+        headerLeft: (
+          <Appbar.BackAction color={Colors.white} onPress={() => navigation.navigate('Outros')} />
+        ),
+      }),
     },
     LembreteFormScreen: {
       screen: LembreteFormScreen,
-      navigationOptions: ({ navigation }) => ({
-        headerLeft: (
-          <Appbar.BackAction color={Colors.white} onPress={() => navigation.goBack()} />
-        ),
-      }),
     },
   },
   {
     initialRouteName: 'Listar',
-    defaultNavigationOptions: ({ navigation }) => ({
-      headerLeft: <Appbar.Action icon="menu" color={Colors.white} onPress={() => navigation.openDrawer()} />,
+    defaultNavigationOptions: () => ({
+      headerStyle: {
+        backgroundColor: theme.colors.primary,
+      },
+      headerTintColor: Colors.white,
+    }),
+  },
+);
+
+const OrcamentoStack = createStackNavigator(
+  {
+    Listar: {
+      screen: ListarOrcamento,
+      navigationOptions: ({ navigation }) => ({
+        title: 'Orçamentos',
+        headerLeft: (
+          <Appbar.BackAction color={Colors.white} onPress={() => navigation.navigate('Outros')} />
+        ),
+      }),
+    },
+    OrcamentoFormScreen: {
+      screen: OrcamentoFormScreen,
+    },
+  },
+  {
+    initialRouteName: 'Listar',
+    defaultNavigationOptions: () => ({
+      headerStyle: {
+        backgroundColor: theme.colors.primary,
+      },
+      headerTintColor: Colors.white,
+    }),
+  },
+);
+
+const OutrosStack = createStackNavigator(
+  {
+    Outros: {
+      screen: Outros,
+      navigationOptions: {
+        title: 'Mais opções',
+      },
+    },
+    Orcamento: {
+      screen: OrcamentoStack,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Agendamento: {
+      screen: AgendamentoStack,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Servico: {
+      screen: ServicoStack,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Despesa: {
+      screen: DespesaStack,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Lembrete: {
+      screen: LembreteStack,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+  },
+  {
+    initialRouteName: 'Outros',
+    defaultNavigationOptions: () => ({
       headerStyle: {
         backgroundColor: theme.colors.primary,
       },
@@ -229,75 +259,38 @@ const AutenticacaoStack = createStackNavigator({
   },
 });
 
-const AppNavigator = createDrawerNavigator(
+const AppNavigator = createMaterialBottomTabNavigator(
   {
     Home: {
       screen: HomeStack,
       navigationOptions: {
-        drawerLabel: 'Início',
-        drawerIcon: 'home',
+        tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name="home" size={24} color={tintColor} />,
       },
     },
     Veiculo: {
       screen: VeiculoStack,
       navigationOptions: {
-        drawerLabel: 'Veículos',
-        drawerIcon: (size, color) => <Icones.CaminhaoIcone size={size} color={color} />,
+        tabBarIcon: ({ tintColor }) => <Icones.CaminhaoIcone size={24} color={tintColor} />,
       },
     },
-    Orcamento: {
-      screen: OrcamentoStack,
+    Outros: {
+      screen: OutrosStack,
       navigationOptions: {
-        drawerLabel: 'Orçamentos',
-        drawerIcon: (size, color) => <Icones.OrcamentoIcone size={size} color={color} />,
-      },
-    },
-    Agendamento: {
-      screen: AgendamentoStack,
-      navigationOptions: {
-        drawerLabel: 'Agendamentos',
-        drawerIcon: (size, color) => <Icones.AgendamentoIcone size={size} color={color} />,
-      },
-    },
-    Despesa: {
-      screen: DespesaStack,
-      navigationOptions: {
-        drawerLabel: 'Despesas',
-        drawerIcon: (size, color) => <Icones.DespesaIcone size={size} color={color} />,
-      },
-    },
-    Servico: {
-      screen: ServicoStack,
-      navigationOptions: {
-        drawerLabel: 'Serviços',
-        drawerIcon: (size, color) => <Icones.ServicoIcone size={size} color={color} />,
-      },
-    },
-    Lembrete: {
-      screen: LembreteStack,
-      navigationOptions: {
-        drawerLabel: 'Lembretes',
-        drawerIcon: (size, color) => <Icones.LembreteIcone size={size} color={color} />,
+        tabBarIcon: ({ tintColor }) => <MaterialIcons name="library-add" size={26} color={tintColor} />,
       },
     },
     SobreNos: {
       screen: SobreNos,
       navigationOptions: {
-        drawerLabel: 'Sobre nós',
-        drawerIcon: (size, color) => <Icones.SobreNosIcone size={size} color={color} />,
+        tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name="information" size={24} color={tintColor} />,
       },
     },
   },
-
   {
     initialRouteName: 'Home',
-    contentComponent: MenuLateral,
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: theme.colors.primary,
-      },
-      headerTintColor: Colors.white,
-    },
+    activeColor: Colors.white,
+    inactiveColor: Colors.grey700,
+    labeled: false,
   },
 );
 
