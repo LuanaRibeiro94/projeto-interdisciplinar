@@ -77,8 +77,8 @@ const Listar = ({ navigation }) => {
       <AlertDialog
         visible={exibirDialog}
         onDismiss={() => setExibirDialog(false)}
-        title="Apagar"
-        content="Apagar item selecionado?"
+        title="Excluir agendamento?"
+        content="Este agendamento e todas suas informações serão excluídas. Você pode editá-lo caso deseje mudar algo."
         onConfirm={() => {
           firebase.database().ref('agendamentos').child(userId).child(itemSelecionado)
             .remove();
