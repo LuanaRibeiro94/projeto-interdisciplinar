@@ -19,11 +19,21 @@ const validationSchema = Yup.object().shape({
 });
 
 const MARCAS = [{
+  value: 'DAF',
+}, {
+  value: 'Ford',
+}, {
+  value: 'Iveco',
+}, {
+  value: 'MAN',
+}, {
+  value: 'Mercedes-Benz',
+}, {
   value: 'Scania',
 }, {
-  value: 'Volvo',
-}, {
   value: 'Volkswagen',
+}, {
+  value: 'Volvo',
 },
 ];
 
