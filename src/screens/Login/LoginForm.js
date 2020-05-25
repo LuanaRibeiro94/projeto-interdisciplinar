@@ -1,8 +1,8 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { Button } from 'react-native-paper';
+import { Button, Avatar, Colors } from 'react-native-paper';
 import FormInput from '../../components/FormInput';
 import ErrorText from '../../components/ErrorText';
 
@@ -18,6 +18,11 @@ const validationSchema = Yup.object().shape({
 const LoginForm = ({ handleChange, submitForm }) => {
   return (
     <View>
+      <Avatar.Image
+        source={require('../../assets/profile.png')}
+        size={70}
+        style={styles.avatar}
+      />
       <Field
         name="email"
         component={FormInput}
@@ -38,9 +43,12 @@ const LoginForm = ({ handleChange, submitForm }) => {
         secureTextEntry
       />
       <ErrorMessage name="senha" component={ErrorText} />
-      <Button mode="contained" onPress={submitForm} style={{ marginTop: 15 }}>
+      <Button mode="contained" onPress={submitForm} style={styles.button} labelStyle={styles.label}>
         LOGIN
       </Button>
+      <Text style={styles.text}>
+        Esqueceu sua senha?
+      </Text>
     </View>
   );
 };
@@ -55,5 +63,25 @@ const FormikLoginForm = ({ enviarFormulario }) => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  avatar: {
+    backgroundColor: Colors.white,
+    alignSelf: 'center',
+    margin: 20,
+  },
+  text: {
+    margin: 10,
+    alignSelf: 'flex-end',
+    fontWeight: 'bold',
+    color: Colors.grey700,
+  },
+  button: {
+    marginTop: 15,
+  },
+  label: {
+    color: 'white',
+  }
+});
 
 export default FormikLoginForm;
