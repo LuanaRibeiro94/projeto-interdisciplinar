@@ -41,7 +41,7 @@ class CadastroCliente extends Component {
 
           { tipoPessoa === 'pf' ? <PessoaFisicaForm /> : <PessoaJuridicaForm />}
 
-          <Button mode="contained" onPress={this.submit} style={styles.button}>
+          <Button mode="contained" onPress={this.submit} style={styles.button} labelStyle={{ color: 'white' }}>
             Cadastrar
           </Button>
         </ScrollView>

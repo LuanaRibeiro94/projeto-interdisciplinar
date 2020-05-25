@@ -1,14 +1,17 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Divider, Text } from 'react-native-paper';
+import { Divider, Text, Colors } from 'react-native-paper';
 
 const Footer = ({ handlePress }) => {
   return (
     <View style={styles.container}>
+      <Text style={styles.text}>
+        Não possui uma conta?
+      </Text>
       <Divider />
       <View style={styles.children}>
-        <Text onPress={handlePress}>
-          CRIAR CONTA
+        <Text onPress={handlePress} style={styles.text}>
+          CADASTRE-SE
         </Text>
       </View>
     </View>
@@ -26,6 +29,15 @@ const styles = StyleSheet.create({
     padding: 8,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  title: {
+    alignSelf: 'center',
+    color: Colors.grey700,
+  },
+  text: {
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    color: Colors.grey700,
   },
 });
 
