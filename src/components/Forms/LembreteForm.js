@@ -14,6 +14,16 @@ import { getPlacas } from '../../services/firebase/veiculos';
 const validationSchema = Yup.object().shape({
   descricao: Yup.string()
     .required('Este campo é obrigatório'),
+  data: Yup.string()
+    .required('Este campo é obrigatório')
+    .test('>= data atual', 'A data não pode ser menor que a data atual', valor => {
+      if (!valor) return true;
+
+      const hoje = moment().utc(true).startOf('day');
+      return !moment(valor, 'DD/MM/YYYY').isBefore(hoje);
+    }),
+  hora: Yup.string()
+    .required('Este campo é obrigatório'),
 });
 
 const LembreteForm = ({
@@ -21,6 +31,7 @@ const LembreteForm = ({
 }) => {
   const [placasVeiculos, setPlacasVeiculos] = useState([]);
   const [mostrarDatePicker, setMostrarDatePicker] = useState(false);
+  const [mostrarTimePicker, setMostrarTimePicker] = useState(false);
 
   useEffect(() => {
     getPlacas()
@@ -30,6 +41,11 @@ const LembreteForm = ({
   const onDataChange = (evento, data) => {
     setMostrarDatePicker(false);
     if (data) handleChange('data')(moment(data).format('DD/MM/YYYY'));
+  };
+
+  const onTimeChange = (evento, hora) => {
+    setMostrarTimePicker(false);
+    if (hora) handleChange('hora')(moment(hora).format('HH:mm'));
   };
 
   return (
@@ -52,7 +68,6 @@ const LembreteForm = ({
         mode="outlined"
         onChangeText={handleChange('descricao')}
       />
-
       <ErrorMessage name="descricao" component={ErrorText} />
 
       <TouchableWithoutFeedback onPress={() => setMostrarDatePicker(true)}>
@@ -68,6 +83,22 @@ const LembreteForm = ({
           </View>
         </View>
       </TouchableWithoutFeedback>
+      <ErrorMessage name="data" component={ErrorText} />
+
+      <TouchableWithoutFeedback onPress={() => setMostrarTimePicker(true)}>
+        <View>
+          <View pointerEvents="none">
+            <Field
+              name="hora"
+              component={FormInput}
+              label="Hora"
+              mode="outlined"
+              onChangeText={handleChange('hora')}
+            />
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+      <ErrorMessage name="hora" component={ErrorText} />
 
       <Button mode="contained" onPress={submitForm} style={{ marginTop: 15 }} labelStyle={{ color: 'white' }}>
         { edit ? 'ALTERAR' : 'CADASTRAR'}
@@ -78,6 +109,15 @@ const LembreteForm = ({
           value={new Date()}
           mode="date"
           onChange={onDataChange}
+        />
+      )}
+
+      {mostrarTimePicker && (
+        <DateTimePicker
+          value={new Date().getTime()}
+          mode="time"
+          onChange={onTimeChange}
+          timeZoneOffsetInMinutes={0}
         />
       )}
     </ScrollView>
@@ -104,6 +144,7 @@ LembreteForm.propTypes = {
     placa: PropTypes.string,
     descricao: PropTypes.string,
     data: PropTypes.string,
+    hora: PropTypes.string,
   }).isRequired,
 };
 
@@ -117,6 +158,7 @@ FormikLembreteForm.propTypes = {
     placa: PropTypes.string,
     descricao: PropTypes.string,
     data: PropTypes.string,
+    hora: PropTypes.string,
   }),
   edit: PropTypes.bool,
 };
@@ -127,6 +169,7 @@ FormikLembreteForm.defaultProps = {
     placa: '',
     descricao: '',
     data: '',
+    hora: '',
   },
 };
 

@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import firebase from 'firebase';
 import { Divider, List } from 'react-native-paper';
 import Touchable from 'react-native-platform-touchable';
 import BottomFAB from '../../components/BottomFAB';
 import AlertDialog from '../../components/Dialog';
 import EmptyState from './EmptyState';
+import { listarLembretes, excluirLembrete } from '../../services/firebase/lembretes';
 
 const Listar = ({ navigation }) => {
   const [lembretes, setLembretes] = useState([]);
   const [exibirDialog, setExibirDialog] = useState(false);
   const [itemSelecionado, setItemSelecionado] = useState();
-  const userId = firebase.auth().currentUser.uid;
 
   useEffect(() => {
-    const ref = firebase.database().ref('lembretes').child(userId);
+    const ref = listarLembretes();
 
     ref.on('value', onValueChange);
 
@@ -39,7 +38,7 @@ const Listar = ({ navigation }) => {
       <List.Item
         key={item.key}
         title={item.placa}
-        description={`${item.descricao} - ${item.data}`}
+        description={`${item.descricao} - ${item.data} - ${item.hora}`}
         onPress={() => navigation.navigate('LembreteFormScreen', {
           edit: true,
           initialValues: item,
@@ -47,7 +46,7 @@ const Listar = ({ navigation }) => {
         right={props => (
           <Touchable
             onPress={() => {
-              setItemSelecionado(item.key);
+              setItemSelecionado(item);
               setExibirDialog(true);
             }}
             background={Touchable.Ripple('rgba(0, 0, 0, 0.2)', true)}
@@ -80,8 +79,7 @@ const Listar = ({ navigation }) => {
         title="Excluir lembrete?"
         content="Este lembrete e todas suas informações serão excluídas. Você pode editá-lo caso deseje mudar algo."
         onConfirm={() => {
-          firebase.database().ref('lembretes').child(userId).child(itemSelecionado)
-            .remove();
+          excluirLembrete(itemSelecionado);
           setExibirDialog(false);
         }}
       />
