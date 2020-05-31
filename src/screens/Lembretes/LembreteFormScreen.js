@@ -1,22 +1,19 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import firebase from 'firebase';
 import LembreteForm from '../../components/Forms/LembreteForm';
+import { criarLembrete, editarLembrete } from '../../services/firebase/lembretes';
 
 const LembreteFormScreen = ({ navigation }) => {
   const edit = navigation.getParam('edit', false);
   const enviarFormulario = valores => {
-    const userId = firebase.auth().currentUser.uid;
-
     if (edit) {
       const { key } = navigation.getParam('initialValues');
 
-      firebase.database().ref('lembretes').child(userId).child(key)
-        .set(valores)
+      editarLembrete(key, valores)
         .then(() => navigation.goBack())
         .catch(() => console.log('Ocorreu algum erro ao alterar o lembrete'));
     } else {
-      firebase.database().ref('lembretes').child(userId).push(valores)
+      criarLembrete(valores)
         .then(() => navigation.goBack())
         .catch(() => console.log('Ocorreu algum erro ao cadastrar o lembrete'));
     }
