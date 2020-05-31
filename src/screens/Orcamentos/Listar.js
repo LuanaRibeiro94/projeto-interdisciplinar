@@ -4,6 +4,7 @@ import { Divider, List } from 'react-native-paper';
 import Touchable from 'react-native-platform-touchable';
 import BottomFAB from '../../components/BottomFAB';
 import AlertDialog from '../../components/Dialog';
+import LoadingModal from '../../components/LoadingModal';
 import EmptyState from './EmptyState';
 import { listarOrcamentos, excluirOrcamento } from '../../services/firebase/orcamentos';
 
@@ -11,6 +12,7 @@ const Listar = ({ navigation }) => {
   const [orcamentos, setOrcamentos] = useState([]);
   const [exibirDialog, setExibirDialog] = useState(false);
   const [itemSelecionado, setItemSelecionado] = useState();
+  const [exibirModal, setExibirModal] = useState(true);
 
   useEffect(() => {
     const ref = listarOrcamentos();
@@ -31,6 +33,7 @@ const Listar = ({ navigation }) => {
     });
 
     setOrcamentos(dadosOrcamentos);
+    setExibirModal(false);
   };
 
   const renderOrcamento = ({ item }) => {
@@ -82,6 +85,7 @@ const Listar = ({ navigation }) => {
           setExibirDialog(false);
         }}
       />
+      <LoadingModal visible={exibirModal} />
     </View>
   );
 };

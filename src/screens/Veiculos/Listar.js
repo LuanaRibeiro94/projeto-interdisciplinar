@@ -5,6 +5,7 @@ import { Divider, List } from 'react-native-paper';
 import Touchable from 'react-native-platform-touchable';
 import BottomFAB from '../../components/BottomFAB';
 import AlertDialog from '../../components/Dialog';
+import LoadingModal from '../../components/LoadingModal';
 import EmptyState from './EmptyState';
 
 const Listar = ({ navigation }) => {
@@ -12,6 +13,7 @@ const Listar = ({ navigation }) => {
   const [exibirDialog, setExibirDialog] = useState(false);
   const [itemSelecionado, setItemSelecionado] = useState();
   const userId = firebase.auth().currentUser.uid;
+  const [exibirModal, setExibirModal] = useState(true);
 
   useEffect(() => {
     const ref = firebase.database().ref('veiculos').child(userId);
@@ -32,6 +34,7 @@ const Listar = ({ navigation }) => {
     });
 
     setVeiculos(dadosVeiculos);
+    setExibirModal(false);
   };
 
   const renderVeiculo = ({ item }) => {
@@ -84,6 +87,7 @@ const Listar = ({ navigation }) => {
           setExibirDialog(false);
         }}
       />
+      <LoadingModal visible={exibirModal} />
     </View>
   );
 };
