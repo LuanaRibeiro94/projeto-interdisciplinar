@@ -4,6 +4,7 @@ import { Divider, List } from 'react-native-paper';
 import Touchable from 'react-native-platform-touchable';
 import BottomFAB from '../../components/BottomFAB';
 import AlertDialog from '../../components/Dialog';
+import LoadingModal from '../../components/LoadingModal';
 import EmptyState from './EmptyState';
 import { listarLembretes, excluirLembrete } from '../../services/firebase/lembretes';
 
@@ -11,6 +12,7 @@ const Listar = ({ navigation }) => {
   const [lembretes, setLembretes] = useState([]);
   const [exibirDialog, setExibirDialog] = useState(false);
   const [itemSelecionado, setItemSelecionado] = useState();
+  const [exibirModal, setExibirModal] = useState(true);
 
   useEffect(() => {
     const ref = listarLembretes();
@@ -31,6 +33,7 @@ const Listar = ({ navigation }) => {
     });
 
     setLembretes(dadosLembretes);
+    setExibirModal(false);
   };
 
   const renderLembrete = ({ item }) => {
@@ -83,6 +86,7 @@ const Listar = ({ navigation }) => {
           setExibirDialog(false);
         }}
       />
+      <LoadingModal visible={exibirModal} />
     </View>
   );
 };
