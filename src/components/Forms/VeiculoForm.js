@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { ScrollView } from 'react-native';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -39,6 +39,10 @@ const MARCAS = [{
 const VeiculoForm = ({
   handleChange, submitForm, edit, values,
 }) => {
+  const campoFrota = useRef();
+  const campoChassi = useRef();
+  const campoModelo = useRef();
+
   return (
     <ScrollView>
       <Field
@@ -48,32 +52,44 @@ const VeiculoForm = ({
         label="Placa"
         onChangeText={handleChange('placa')}
         autoCapitalize="characters"
+        returnKeyType="next"
+        onSubmitEditing={() => campoFrota.current.focus()}
+        blurOnSubmit={false}
       />
       <ErrorMessage name="placa" component={ErrorText} />
 
       <Field
         name="frota"
         component={FormInput}
+        componentRef={campoFrota}
         mode="outlined"
         label="Frota"
         onChangeText={handleChange('frota')}
         autoCapitalize="characters"
+        returnKeyType="next"
+        onSubmitEditing={() => campoChassi.current.focus()}
+        blurOnSubmit={false}
       />
       <ErrorMessage name="frota" component={ErrorText} />
 
       <Field
         name="chassi"
         component={FormInput}
+        componentRef={campoChassi}
         mode="outlined"
         label="Chassi"
         onChangeText={handleChange('chassi')}
         keyboardType="numeric"
+        returnKeyType="next"
+        onSubmitEditing={() => campoModelo.current.focus()}
+        blurOnSubmit={false}
       />
       <ErrorMessage name="chassi" component={ErrorText} />
 
       <Field
         name="modelo"
         component={FormInput}
+        componentRef={campoModelo}
         mode="outlined"
         label="Modelo"
         onChangeText={handleChange('modelo')}

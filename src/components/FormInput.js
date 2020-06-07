@@ -2,7 +2,7 @@ import React from 'react';
 import { TextInput } from 'react-native-paper';
 import { getIn } from 'formik';
 
-const FormInput = ({ field, form, ...resto }) => {
+const FormInput = ({ field, form, componentRef, ...resto }) => {
   const erro = () => {
     const touch = getIn(form.touched, field.name);
     const error = getIn(form.errors, field.name);
@@ -14,6 +14,7 @@ const FormInput = ({ field, form, ...resto }) => {
     <TextInput
       error={erro(field, form)}
       value={field.value}
+      ref={componentRef}
       {...resto}
     />
   );
