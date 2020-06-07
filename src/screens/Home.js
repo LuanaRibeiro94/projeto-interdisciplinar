@@ -5,12 +5,17 @@ import {
 import {
   Title, Card, Caption, Paragraph, Divider, Colors,
 } from 'react-native-paper';
+import firebase from 'firebase';
 
 const Home = () => {
   return (
     <ScrollView>
       <View>
-        <Title style={styles.title}>Bem-vindo</Title>
+        <Title style={styles.title}>
+          Bem-vindo(a),
+          {' '}
+          {firebase.auth().currentUser.displayName}
+        </Title>
 
         <Title style={styles.title2}>Últimas notícias</Title>
         <Card>
