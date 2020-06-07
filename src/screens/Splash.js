@@ -8,7 +8,8 @@ const Splash = ({ navigation }) => {
   const getFirebaseAuth = () => {
     return new Promise((resolve, reject) => {
       try {
-        firebase.auth().onAuthStateChanged(usuario => {
+        const unsubscribe = firebase.auth().onAuthStateChanged(usuario => {
+          if (unsubscribe) unsubscribe();
           if (usuario) setAutenticado(true);
 
           resolve();

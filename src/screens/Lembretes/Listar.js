@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { Divider, List } from 'react-native-paper';
+import { Divider, List, Button } from 'react-native-paper';
 import Touchable from 'react-native-platform-touchable';
 import BottomFAB from '../../components/BottomFAB';
-import AlertDialog from '../../components/Dialog';
+import AlertDialog from '../../components/AlertDialog';
 import LoadingModal from '../../components/LoadingModal';
 import EmptyState from './EmptyState';
 import { listarLembretes, excluirLembrete } from '../../services/firebase/lembretes';
@@ -36,6 +36,12 @@ const Listar = ({ navigation }) => {
     setExibirModal(false);
   };
 
+  const confirmDialog = () => {
+    excluirLembrete(itemSelecionado);
+    setExibirDialog(false);
+  };
+
+  // eslint-disable-next-line react/prop-types
   const renderLembrete = ({ item }) => {
     return (
       <List.Item
@@ -81,10 +87,12 @@ const Listar = ({ navigation }) => {
         onDismiss={() => setExibirDialog(false)}
         title="Excluir lembrete?"
         content="Este lembrete e todas suas informações serão excluídas. Você pode editá-lo caso deseje mudar algo."
-        onConfirm={() => {
-          excluirLembrete(itemSelecionado);
-          setExibirDialog(false);
-        }}
+        acoes={(
+          <>
+            <Button onPress={() => setExibirDialog(false)}>Cancelar</Button>
+            <Button onPress={confirmDialog}>Apagar</Button>
+          </>
+        )}
       />
       <LoadingModal visible={exibirModal} />
     </View>

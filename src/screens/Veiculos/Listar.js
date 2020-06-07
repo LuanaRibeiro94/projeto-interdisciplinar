@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import firebase from 'firebase';
-import { Divider, List } from 'react-native-paper';
+import { Divider, List, Button } from 'react-native-paper';
 import Touchable from 'react-native-platform-touchable';
 import BottomFAB from '../../components/BottomFAB';
-import AlertDialog from '../../components/Dialog';
+import AlertDialog from '../../components/AlertDialog';
 import LoadingModal from '../../components/LoadingModal';
 import EmptyState from './EmptyState';
 
@@ -37,6 +37,13 @@ const Listar = ({ navigation }) => {
     setExibirModal(false);
   };
 
+  const confirmDialog = () => {
+    firebase.database().ref('veiculos').child(userId).child(itemSelecionado)
+      .remove();
+    setExibirDialog(false);
+  };
+
+  // eslint-disable-next-line react/prop-types
   const renderVeiculo = ({ item }) => {
     return (
       <List.Item
@@ -81,11 +88,12 @@ const Listar = ({ navigation }) => {
         onDismiss={() => setExibirDialog(false)}
         title="Excluir veículo?"
         content="Este veículo e todas suas informações serão excluídas. Você pode editá-lo caso deseje mudar algo."
-        onConfirm={() => {
-          firebase.database().ref('veiculos').child(userId).child(itemSelecionado)
-            .remove();
-          setExibirDialog(false);
-        }}
+        acoes={(
+          <>
+            <Button onPress={() => setExibirDialog(false)}>Cancelar</Button>
+            <Button onPress={confirmDialog}>Apagar</Button>
+          </>
+        )}
       />
       <LoadingModal visible={exibirModal} />
     </View>

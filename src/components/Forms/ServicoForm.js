@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import { Formik, Field } from 'formik';
 import { Button } from 'react-native-paper';
@@ -13,6 +13,10 @@ import { getPlacas } from '../../services/firebase/veiculos';
 const ServicoForm = ({
   handleChange, submitForm, edit, values,
 }) => {
+  const campoLocal = useRef();
+  const campoDescricao = useRef();
+  const campoValor = useRef();
+
   const [placasVeiculos, setPlacasVeiculos] = useState([]);
   const [mostrarDatePicker, setMostrarDatePicker] = useState(false);
 
@@ -46,29 +50,41 @@ const ServicoForm = ({
         label="Odômetro"
         onChangeText={handleChange('odometro')}
         keyboardType="numeric"
+        returnKeyType="next"
+        onSubmitEditing={() => campoLocal.current.focus()}
+        blurOnSubmit={false}
       />
 
       <Field
         name="local"
         component={FormInput}
+        componentRef={campoLocal}
         mode="outlined"
         label="Local"
         onChangeText={handleChange('local')}
         autoCapitalize="characters"
+        returnKeyType="next"
+        onSubmitEditing={() => campoDescricao.current.focus()}
+        blurOnSubmit={false}
       />
 
       <Field
         name="descricao"
         component={FormInput}
+        componentRef={campoDescricao}
         mode="outlined"
         label="Descrição"
         onChangeText={handleChange('descricao')}
         autoCapitalize="characters"
+        returnKeyType="next"
+        onSubmitEditing={() => campoValor.current.focus()}
+        blurOnSubmit={false}
       />
 
       <Field
         name="valor"
         component={FormInput}
+        componentRef={campoValor}
         mode="outlined"
         label="Valor"
         onChangeText={handleChange('valor')}

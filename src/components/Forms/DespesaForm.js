@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import { Formik, Field } from 'formik';
 import { Button } from 'react-native-paper';
@@ -13,6 +13,9 @@ import { getPlacas } from '../../services/firebase/veiculos';
 const DespesaForm = ({
   handleChange, submitForm, edit, values,
 }) => {
+  const campoTipo = useRef();
+  const campoValor = useRef();
+
   const [placasVeiculos, setPlacasVeiculos] = useState([]);
   const [mostrarDatePicker, setMostrarDatePicker] = useState(false);
 
@@ -45,19 +48,27 @@ const DespesaForm = ({
         mode="outlined"
         label="Local"
         onChangeText={handleChange('local')}
+        returnKeyType="next"
+        onSubmitEditing={() => campoTipo.current.focus()}
+        blurOnSubmit={false}
       />
 
       <Field
         name="tipoDespesa"
         component={FormInput}
+        componentRef={campoTipo}
         mode="outlined"
         label="Tipo de despesa"
         onChangeText={handleChange('tipoDespesa')}
+        returnKeyType="next"
+        onSubmitEditing={() => campoValor.current.focus()}
+        blurOnSubmit={false}
       />
 
       <Field
         name="valor"
         component={FormInput}
+        componentRef={campoValor}
         mode="outlined"
         label="Valor"
         onChangeText={handleChange('valor')}

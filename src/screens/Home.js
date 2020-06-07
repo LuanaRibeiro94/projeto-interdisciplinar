@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <ScrollView>
       <View>
-        <Title style={styles.title}>Bem-vindo(a), Luana</Title>
+        <Title style={styles.title}>Bem-vindo</Title>
 
         <Title style={styles.title2}>Últimas notícias</Title>
         <Card>
