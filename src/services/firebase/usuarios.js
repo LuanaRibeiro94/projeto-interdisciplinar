@@ -7,6 +7,7 @@ export const criarUsuario = async ({ email, senha, ...valores }) => {
   if (resposta?.user) {
     const { uid } = resposta.user;
 
+    resposta.user.updateProfile({ displayName: valores.nome || valores.razao });
     firebase.database().ref('usuarios').child(uid).set(valores);
   }
 };
