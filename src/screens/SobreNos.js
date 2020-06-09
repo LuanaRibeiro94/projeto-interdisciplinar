@@ -9,7 +9,7 @@ import { FontAwesome, Foundation } from '@expo/vector-icons';
 const SobreNos = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.card}>
+      <View>
         <Card>
           <Card.Title title="Sobre a oficina" titleStyle={styles.title} />
           <Card.Cover
@@ -46,9 +46,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 20,
     marginTop: 20,
-  },
-  card: {
-    height: 350,
   },
   image: {
     height: 230,
